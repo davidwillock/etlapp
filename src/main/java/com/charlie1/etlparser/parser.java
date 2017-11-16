@@ -83,7 +83,7 @@ public class parser {
      */   
         
       //  parse(journal);
-        parseCash(journal);
+      //  parseCash(journal);
 
 	}
 	

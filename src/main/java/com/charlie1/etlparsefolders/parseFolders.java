@@ -1,8 +1,16 @@
 package com.charlie1.etlparsefolders;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+
+import com.charlie1.etlparser.*;
 
 public class parseFolders  {
+	
+
 	
 	
 	String path="";
@@ -22,7 +30,7 @@ public class parseFolders  {
 	
 	
 	
-	parseFolders(){
+	public parseFolders(){
 		
 		File currentDir = new File("."); // current directory
 	//	displayDirectoryContents(currentDir);
@@ -120,8 +128,17 @@ public class parseFolders  {
 	
 	
 	
-/*
+
 	public static void displayDirectoryContents(File dir) {
+		
+		parser srcfiles = new parser();
+		
+		
+		
+		
+		
+		
+		
 		try {
 			File[] files = dir.listFiles();
 			for (File file : files) {
@@ -130,6 +147,42 @@ public class parseFolders  {
 					displayDirectoryContents(file);
 				} else {
 					System.out.println("     file:" + file.getCanonicalPath());
+				
+					    String[] bits = file.getName().split(".");
+					 //   String teststr = bits[bits.length - 1];
+					//    if (bits.length > 0 && bits[bits.length - 1].equalsIgnoreCase("jrn")) {
+					        // Do stuff with the file
+					    
+					   
+					    		
+					    	//	if (file.getName().split(".").equals(obj)("jrn"))
+					    			 String Str = file.getName();
+					    			 
+					    			 
+					    					// for (String retjrn: Str.split(".")) {
+					    			 String[] retjrn = Str.split("\\.");
+					    						 
+					    						 if (retjrn[1].equalsIgnoreCase("jrn")) {
+					    						 
+					    				         System.out.println("Str");
+					    					//	 }
+					    					 }	 	
+					    	
+					    	
+					    	
+					    	FileInputStream fis = new FileInputStream(file.getName());
+					    	byte[] data = new byte[(int) file.length()];
+					    	fis.read(data);
+					    	fis.close();
+
+					    	String strFile = new String(data, "UTF-8");
+					    	
+					    	srcfiles.parseCash(strFile);
+					    	
+					    				    	
+					//    }
+					
+					
 				}
 			}
 		} catch (IOException e) {
@@ -137,7 +190,7 @@ public class parseFolders  {
 		}
 	}
 
-	*/
+	
 	
 	
 	

@@ -5,6 +5,9 @@ package com.charlie1.etlApp;
 //import java.util.List;
 
 import org.json.JSONObject;
+
+import java.io.File;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.springframework.context.ApplicationContext;
@@ -20,6 +23,7 @@ import com.charlie1.etl.model.selectFundsByFund;
 //import java.util.Date;
 
 import com.charlie1.etlparser.parser;
+import com.charlie1.etlparsefolders.*;
 
 
 /**
@@ -74,6 +78,11 @@ public class App
         
         String strRisk = risk.getjsonStr();
      */
+        
+        File currentDir = new File("C:\\home\\charlie\\Custjrn");
+        parseFolders source = new parseFolders();
+        source.displayDirectoryContents(currentDir);
+        
         
     
         String fundtmp = "{'Fund': 'PGMIX'}";
