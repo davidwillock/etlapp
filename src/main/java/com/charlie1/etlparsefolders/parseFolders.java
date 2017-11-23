@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import com.charlie1.etlparser.*;
 
+import com.charlie1.etlvalidatejournal.*;
+
 public class parseFolders  {
 	
 
@@ -38,6 +40,9 @@ public class parseFolders  {
 		
 	}
 	
+	
+	
+	static validateJournal validatejournal = new validateJournal();
 	
 	
 	public void NavFolder(String DirPath) {
@@ -153,31 +158,55 @@ public class parseFolders  {
 					//    if (bits.length > 0 && bits[bits.length - 1].equalsIgnoreCase("jrn")) {
 					        // Do stuff with the file
 					    
+					  //   validatejournal.checkJournal();
+					    	
+					    
+					     	 String StrGetName = file.getName();
+					    	 String[] retjrn = StrGetName.split("\\.");
+					    	 String journalID = "";
+					    						 
+					    	if (retjrn[1].equalsIgnoreCase("jrn")) {
+					    						 
+					    	journalID = retjrn[0];
+					    					
+					    	}	 	
+					    
+					    	String strAbsPath = file.getAbsolutePath();
+					       	String strPath = file.getParent();
+					    	File subPath = new File(strPath);
+					    	String terminalID = subPath.getName();
 					   
-					    		
-					    	//	if (file.getName().split(".").equals(obj)("jrn"))
-					    			 String Str = file.getName();
-					    			 
-					    			 
-					    					// for (String retjrn: Str.split(".")) {
-					    			 String[] retjrn = Str.split("\\.");
-					    						 
-					    						 if (retjrn[1].equalsIgnoreCase("jrn")) {
-					    						 
-					    				         System.out.println("Str");
-					    					//	 }
-					    					 }	 	
+;					    	
 					    	
 					    	
+					    	String strjournaltmp = strAbsPath;
 					    	
-					    	FileInputStream fis = new FileInputStream(file.getName());
+					    	FileInputStream fis = new FileInputStream(strjournaltmp);
 					    	byte[] data = new byte[(int) file.length()];
 					    	fis.read(data);
 					    	fis.close();
-
-					    	String strFile = new String(data, "UTF-8");
 					    	
-					    	srcfiles.parseCash(strFile);
+					    	
+					    	
+					    	
+
+					    	String strJournalData = new String(data, "UTF-8");
+					    	
+					        
+					    	
+					     	validatejournal.setTerminalID(terminalID);
+					    	validatejournal.setJournalName(journalID);
+					    	validatejournal.checkJournal();
+					    	
+					    	if(validatejournal.isGetStatus()) {
+					    		
+					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
+					    	}
+					    	
+					    	
+					    	
+					    	
+					    //	srcfiles.parseCash(strJournalFile);
 					    	
 					    				    	
 					//    }

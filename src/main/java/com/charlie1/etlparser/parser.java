@@ -5,6 +5,8 @@ package com.charlie1.etlparser;
 //import org.rosuda.REngine;
 
 import org.rosuda.JRI.Rengine;
+import com.charlie1.etlwriteto.*;
+import com.charlie1.etlvalidatejournal.*;
 
 public class parser {
 
@@ -157,17 +159,30 @@ public class parser {
 		
 	}
 	
-public static void parseCash(String journal) {
+public static void parseCash(String journal,String terminalID,String journalID) {
 		
 		
+		
+		writetoDisk writetodisk = new writetoDisk();
+		validateJournal evaljrn = new validateJournal();
+		
+		
+		writetodisk.setCsvPath("c:\\home\\charlie\\dataMart.csv");
+		
+	
 		char p;
 		
-		String is = "is";
-		String paragraph = "transaction is a test.";
+	//	String is = "is";
+	//	String paragraph = "transaction is a test.";
 		String bufferStr="";
+		String bufferDigits="";
 		String buffer="";
+		String buffToDisk="";
+		String journalrecordBuffer="";
+		int sumValues=0;
 		
 		String testCash = new String();
+		int sumval=0;
 	
 	
 		char lblCash[]= {'C','A','S','H',' ',' ',' ','\0'};
@@ -182,7 +197,7 @@ public static void parseCash(String journal) {
 	
 		
 		
-		int paraLength = paragraph.length();
+	//	int paraLength = paragraph.length();
 		
 	    int i=0;
 		while(i < jrnLength) {
@@ -218,7 +233,7 @@ public static void parseCash(String journal) {
 					if(jrn.charAt(i) != 'D' && Character.isDigit(jrn.charAt(i))) {
 						
 						while(Character.isDigit(jrn.charAt(i))) {
-							
+							bufferDigits+= jrn.charAt(i);
 							bufferStr+= jrn.charAt(i);
 							i++;
 						}
@@ -228,13 +243,21 @@ public static void parseCash(String journal) {
 						buffer += bufferStr;
 						buffer += " ";
 						buffer += "\r\n";
-						System.out.println(buffer);
+						System.out.println(bufferStr + " " + "Transaction Count" + " "+ transCnt+" Value "+sumval);
+						String csvFormat = "Transact ";
 						
 						
+						sumval = Integer.parseInt(bufferDigits);
+						
+						sumValues+=sumval;
+						
+						bufferDigits="";
 						
 						
 						
 					}else {
+						
+						
 						
 						bufferStr = "";
 									
@@ -261,7 +284,9 @@ public static void parseCash(String journal) {
 			i++;
 		}
 		
-		
+		buffToDisk = "'"+terminalID+"','"+journalID+"','"+sumValues+"','"+transCnt+"'"+"\r\n";
+		writetodisk.setJournalData(buffToDisk);
+		writetodisk.sentToMart();
 		
 		
 		

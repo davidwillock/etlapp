@@ -33,6 +33,9 @@ import com.charlie1.etl.model.jPerfCalender;
 import com.charlie1.etl.model.jIndexes;
 
 
+import com.charlie1.etl.model.journalData;
+
+
 
 
 
@@ -993,6 +996,80 @@ public	  String buildStrIDX() {
  	          			try {
  	          				
  	          				jkson = ob.writeValueAsString(jperform);
+ 	          				
+ 	          				
+ 	          				
+ 	          			}catch(JsonProcessingException ex) {
+ 	          				
+ 	          				ex.printStackTrace();
+ 	          				
+ 	          				
+ 	          			}
+ 	          			
+ 	          			
+ 	          			  jsonstr += jkson;
+ 	          			
+ 	                   
+ 	                      jsonstr += ",";
+ 	                      
+ 	                      
+ 	                      return jsonstr;
+ 	                      
+ 	                      
+ 	                      
+ 	              }
+ 	              
+ 	         });
+ 	 			
+ 	 			
+ 	 		Iterator itemIterator = data.iterator();
+ 	 				
+ 	 		while(itemIterator.hasNext()){
+ 	 			
+ 	 			jsonstr+= (String)itemIterator.next();
+ 	 			
+ 	 		}
+ 	 		 
+ 	 		 
+ 	 		return jsonstr;
+ 	 		
+ 	 		
+ 	 	}  
+		
+
+ 		public String buildStrJournalData(){
+ 	 		
+ 	 		
+ 	 		
+ 	 		 String jsonstr = "";
+ 	 		
+ 	 		 String journalstr =  "select R.TerminalID,R.JournalID from JournalLookup R right join Customer C on C.TerminalID = R.TerminalID where R.JournalStatus = 0";
+
+ 	 
+ 	 	
+ 	 		journalData journaldata = new journalData();
+ 	 		 
+ 	 		 
+ 	  List<String> data = getJdbcTemplate().query(journalstr, new RowMapper<String>(){
+ 	 			 
+ 	 			 String jsonstr = "";
+ 	              public String mapRow(ResultSet rs, int rowNum) 
+ 	                                           throws SQLException {
+ 	             	 
+ 	             	   
+ 	             	 journaldata.setJournalID(rs.getString("JournalID"));
+ 	             	 journaldata.setTerminalID(rs.getString("TerminalID")); 
+ 	             	// journaldata.setJournalStatus(rs.getString("InceptionDate_")); 
+ 	            	  
+ 	            	                                     
+ 	                  
+ 	                      
+ 	          			ObjectMapper ob = new ObjectMapper();
+ 	          			String jkson="";
+ 	          			
+ 	          			try {
+ 	          				
+ 	          				jkson = ob.writeValueAsString(journaldata);
  	          				
  	          				
  	          				
