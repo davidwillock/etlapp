@@ -2,7 +2,7 @@ package com.charlie1.etl.dao;
 
 import java.util.Iterator;
 import java.util.List;
-//import com.charlie1.funds.model;
+import com.charlie1.etl.model.journalLookup;
 
 //import com.charlie1.funds.dao.impl.jPerformDataEnum;
 
@@ -30,6 +30,8 @@ public interface FundsDAO
 	public Iterator getFundsbyFund(String fund);
 	public String buildStrPeformanceDataAll();
 	public String buildStrJournalData();
+	public void updateTable(journalLookup data);
+	
 		    
 			
 		

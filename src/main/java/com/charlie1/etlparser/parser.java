@@ -7,6 +7,8 @@ package com.charlie1.etlparser;
 import org.rosuda.JRI.Rengine;
 import com.charlie1.etlwriteto.*;
 import com.charlie1.etlvalidatejournal.*;
+import com.charlie1.etl.model.journalLookup;
+import com.charlie1.etl.model.sendJournalStatus;
 
 public class parser {
 
@@ -16,8 +18,11 @@ public class parser {
 		// TODO Auto-generated method stubd
 	
 	public void rUtility() {
-	
-		System.out.println("test");
+		
+		
+		journalLookup jrnlookup = new journalLookup();
+		
+		System.out.println("rUtility");
 		
 		
 		
@@ -287,6 +292,10 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 		buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
 		writetodisk.setJournalData(buffToDisk);
 		writetodisk.writetoCSV();
+		// WE should check the status of the write to file but we cannot verify
+		sendJournalStatus sendjournalstatus= new sendJournalStatus();
+		sendjournalstatus.setTerminalID(terminalID);
+		sendjournalstatus.setJournalStatus(journalID);
 		writetodisk.sendCSVtoMart();
 		
 			

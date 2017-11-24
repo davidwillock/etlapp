@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,6 +36,10 @@ import com.charlie1.etl.model.jIndexes;
 
 
 import com.charlie1.etl.model.journalData;
+import com.charlie1.etl.model.journalLookup;
+
+
+
 
 
 
@@ -42,6 +48,9 @@ import com.charlie1.etl.model.journalData;
 public class JdbcFundsDAO extends JdbcDaoSupport implements FundsDAO
 {
 
+	
+	private DataSource datasource;
+	private JdbcTemplate jdbcTemplate;
 	
 
 	public String buildStrPeformanceData(String risk1, String risk2){
@@ -1111,8 +1120,32 @@ public	  String buildStrIDX() {
  	 	}  
 		
 		
-		
+ 		
  	
+ 		
+		
+ 	public void updateTable(journalLookup data) {
+ 		
+ 		journalLookup journallookup = new journalLookup();
+
+ 		//	String sql = "INSERT INTO CUSTOMER " +
+ 		//		"(CUST_ID, NAME, AGE) VALUES (?, ?, ?)";
+ 		
+ 		String sql = "update journallookup set JournalStatus = ? where terminalID = ?";
+
+ 			jdbcTemplate = new JdbcTemplate(datasource);
+
+ 			jdbcTemplate.update(sql, new Object[] { data.getJournalStatus(),
+ 				data.getTerminalID()
+ 			});
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 	}
  	
  	
  	
