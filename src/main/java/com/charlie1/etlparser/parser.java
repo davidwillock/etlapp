@@ -284,10 +284,12 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 			i++;
 		}
 		
-		buffToDisk = "'"+terminalID+"','"+journalID+"','"+sumValues+"','"+transCnt+"'"+"\r\n";
+		buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
 		writetodisk.setJournalData(buffToDisk);
-		writetodisk.sentToMart();
+		writetodisk.writetoCSV();
+		writetodisk.sendCSVtoMart();
 		
+			
 		
 		
 		

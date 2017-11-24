@@ -18,12 +18,14 @@ import com.charlie1.etl.dao.FundsDAO;
 import com.charlie1.etl.model.jPerformanceData;
 import com.charlie1.etl.model.selectFundsAll;
 import com.charlie1.etl.model.selectFundsByRisk;
+import com.charlie1.etl.model.selectJournal;
 import com.charlie1.etl.model.selectRisk;
 import com.charlie1.etl.model.selectFundsByFund;
 //import java.util.Date;
 
 import com.charlie1.etlparser.parser;
 import com.charlie1.etlparsefolders.*;
+import com.charlie1.etlvalidatejournal.*;
 
 
 /**
@@ -32,7 +34,15 @@ import com.charlie1.etlparsefolders.*;
  */
 public class App 
 {
-    public static void main( String[] args )
+	
+	
+
+	 static String jsonStr;
+
+	
+	
+	
+	public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
         
@@ -78,6 +88,21 @@ public class App
         
         String strRisk = risk.getjsonStr();
      */
+        
+        
+        selectJournal journaldata = new selectJournal();
+        validateJournal validatejrn = new validateJournal();
+        selectJournal selectjournal = new selectJournal();
+        
+        String jsonStr = selectjournal.getjsonStr();
+        
+        App app = new App();
+        app.setJsonStr(jsonStr);
+        
+        
+      //  String Static final journalDATAstr = app.getJsonStr();
+        
+        
         
         File currentDir = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
@@ -654,7 +679,14 @@ public class App
     
         
         
-        
+	public String getJsonStr() {
+		return jsonStr;
+	}
+
+	public void setJsonStr(String jsonStr) {
+		this.jsonStr = jsonStr;
+	}
+
         
         
         

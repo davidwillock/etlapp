@@ -10,6 +10,8 @@ package com.charlie1.etlvalidatejournal;
  */
 
 import com.charlie1.etl.model.*;
+import com.charlie1.etlApp.App;
+
 import org.json.JSONObject;
 import org.json.JSONArray;
 public class validateJournal {
@@ -61,9 +63,11 @@ public class validateJournal {
 	
 	public void checkJournal() {
 		
-		selectJournal journaldata = new selectJournal();
 		
-		String jrndata = journaldata.getjsonStr();
+		App app = new App();
+		
+		//String jrndata = journaldata.getjsonStr();
+		String jrndata = app.getJsonStr();
 		
 		 setGetStatus(false);
 		
