@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+
 import com.charlie1.etldos.*;
 import com.charlie1.etldos.*;
 
@@ -178,6 +180,8 @@ public void sendCSVtoMart() {
 		
 				System.out.println("Sent To Mart");
 				
+			   Files.deleteIfExists(file.toPath()); //surround 
+					
 				
 			}else {
 				

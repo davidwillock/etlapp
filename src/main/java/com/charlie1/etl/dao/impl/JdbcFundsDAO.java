@@ -17,6 +17,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -37,6 +39,7 @@ import com.charlie1.etl.model.jIndexes;
 
 import com.charlie1.etl.model.journalData;
 import com.charlie1.etl.model.journalLookup;
+import com.charlie1.etl.model.transactionData;
 
 
 
@@ -49,7 +52,7 @@ public class JdbcFundsDAO extends JdbcDaoSupport implements FundsDAO
 {
 
 	
-	private DataSource datasource;
+	//private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 	
 
@@ -1052,7 +1055,7 @@ public	  String buildStrIDX() {
  	 		
  	 		 String jsonstr = "";
  	 		
- 	 		 String journalstr =  "select R.TerminalID,R.JournalID from JournalLookup R right join Customer C on C.TerminalID = R.TerminalID where R.JournalStatus = 0";
+ 	 		 String journalstr =  "select R.TerminalID,R.JournalID from JournalLookup R right join Customer C on C.TerminalID = R.TerminalID where R.JournalStatus = 1";
 
  	 
  	 	
@@ -1121,23 +1124,87 @@ public	  String buildStrIDX() {
 		
 		
  		
- 	
+ 		
  		
 		
- 	public void updateTable(journalLookup data) {
+ //	public void updateTable(journalLookup data) {
  		
- 		journalLookup journallookup = new journalLookup();
+ //		journalLookup journallookup = new journalLookup();
 
  		//	String sql = "INSERT INTO CUSTOMER " +
  		//		"(CUST_ID, NAME, AGE) VALUES (?, ?, ?)";
  		
- 		String sql = "update journallookup set JournalStatus = ? where terminalID = ?";
+ 		
+ 		
+ 	//	String sql = "update journallookup set JournalStatus = ? where terminalID = ?";
 
- 			jdbcTemplate = new JdbcTemplate(datasource);
+ 	//		jdbcTemplate = new JdbcTemplate(dataSource);
 
- 			jdbcTemplate.update(sql, new Object[] { data.getJournalStatus(),
- 				data.getTerminalID()
- 			});
+ 		//	jdbcTemplate.update(sql, new Object[] { data.getJournalStatus(),
+ 	//			data.getTerminalID()
+ //			});
+ 		
+ 		
+ 		
+ 		public void updateTable(final List<journalLookup> Journals){
+
+ 			String sql = "INSERT INTO JournalLookup " +
+ 					"(TerminalID, JournalID, JournalStatus) VALUES (?, ?, 1)";
+ 			
+ 			
+ 		//	String sql = "Update JournalLookup  set JournalStatus = " +
+ 		//			"? where TerminalID = ?";
+ 					
+ 				getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+ 					
+ 					@Override
+ 					public void setValues(PreparedStatement ps, int i) throws SQLException {
+ 						journalLookup journal = Journals.get(i);
+ 						ps.setString(1, journal.getTerminalID());
+ 						ps.setString(2, journal.getJournalStatus());
+ 						
+ 					}
+ 					
+ 					@Override
+ 					public int getBatchSize() {
+ 						return Journals.size();
+ 					}
+ 				});
+
+ 			
+ 		}
+ 		
+
+ 		public void batchTransaction(final List<transactionData> Trans){
+ 			
+ 			transactionData transdata = new transactionData();
+
+ 			String sql = "INSERT INTO Transactions " +
+ 					"(TerminalID, JournalID,Atm_value,Atm_volume ) VALUES (?, ?, ?,?)";
+ 			
+ 			
+ 		//	String sql = "Update JournalLookup  set JournalStatus = " +
+ 		//			"? where TerminalID = ?";
+ 					
+ 				getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+ 					
+ 					@Override
+ 					public void setValues(PreparedStatement ps, int i) throws SQLException {
+ 						transactionData transdata = Trans.get(i);
+ 						ps.setString(1, transdata.getTerminalID());
+ 						ps.setString(2, transdata.getJournalID());
+ 						ps.setInt(3, transdata.getAtm_value());
+ 						ps.setInt(4, transdata.getAtm_volume());
+ 					}
+ 					
+ 					@Override
+ 					public int getBatchSize() {
+ 						return Trans.size();
+ 					}
+ 				});
+
+ 			
+ 		}
  		
  		
  		
@@ -1145,7 +1212,13 @@ public	  String buildStrIDX() {
  		
  		
  		
- 	}
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 	
  	
  	
  	

@@ -198,7 +198,7 @@ public class parseFolders  {
 					    	validatejournal.setJournalName(journalID);
 					    	validatejournal.checkJournal();
 					    	
-					    	if(validatejournal.isGetStatus()) {
+					    	if(!validatejournal.isGetStatus()) {
 					    		
 					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
 					    	}

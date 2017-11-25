@@ -2,13 +2,18 @@ package com.charlie1.etlparser;
 
 
 //import org.rosuda.REngine.*;
+
+
 //import org.rosuda.REngine;
+import java.util.ArrayList;
 
 import org.rosuda.JRI.Rengine;
 import com.charlie1.etlwriteto.*;
 import com.charlie1.etlvalidatejournal.*;
 import com.charlie1.etl.model.journalLookup;
 import com.charlie1.etl.model.sendJournalStatus;
+import com.charlie1.etl.model.sendTransactionData;
+import com.charlie1.etl.model.transactionData;
 
 public class parser {
 
@@ -197,6 +202,9 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 	
 		String jrn = journal;
 		int jrnLength = jrn.length();
+		ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
+		ArrayList<transactionData> transArray = new ArrayList<transactionData>();
+		
 		
 		
 	
@@ -294,9 +302,28 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 		writetodisk.writetoCSV();
 		// WE should check the status of the write to file but we cannot verify
 		sendJournalStatus sendjournalstatus= new sendJournalStatus();
-		sendjournalstatus.setTerminalID(terminalID);
-		sendjournalstatus.setJournalStatus(journalID);
-		writetodisk.sendCSVtoMart();
+		journalLookup journallookup = new journalLookup();
+		journallookup.setTerminalID(terminalID);
+		journallookup.setJournalStatus(journalID);
+	
+		
+		
+		sendTransactionData sendtran = new sendTransactionData();
+		transactionData transdata = new transactionData();
+		transdata.setTerminalID(terminalID);
+		transdata.setJournalID(journalID);
+		transdata.setAtm_value(sumValues);
+		transdata.setAtm_volume(transCnt);
+		
+		
+		transArray.add(transdata);
+		sendtran.setTransactionData(transArray);
+		sendtran.initialiseData();
+		journalStatusArray.add(journallookup);
+		sendjournalstatus.setJournaldata(journalStatusArray);
+		sendjournalstatus.initialiseData();
+		
+		//writetodisk.sendCSVtoMart();
 		
 			
 		

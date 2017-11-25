@@ -1,6 +1,9 @@
 package com.charlie1.etl.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.charlie1.etl.dao.FundsDAO;
@@ -21,39 +24,44 @@ import com.charlie1.etl.model.journalLookup;
 	
 	String terminalID;
 	String journalStatus;
+	List<journalLookup> journaldataArray;
 	
 	
-	public String getTerminalID() {
-		return terminalID;
+	public List<journalLookup> getJournaldata() {
+		return journaldataArray;
 	}
-	public void setTerminalID(String terminalID) {
-		this.terminalID = terminalID;
+	public void setJournaldata(List<journalLookup> journaldataArray) {
+		this.journaldataArray = journaldataArray;
 	}
-	public String getJournalStatus() {
-		return journalStatus;
-	}
-	public void setJournalStatus(String journalStatus) {
-		this.journalStatus = journalStatus;
-	}
+	
 
+	
+	
+	
+	
+	
 	 
-	void initialiseData() {
+	public void initialiseData() {
 		
 		
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
 		
-		journalLookup journallookup = new journalLookup();
 		
 		
-		journallookup.getJournalStatus();
-		journallookup.getTerminalID();
+		
+		
+		
+		//List<journalLookup> journals = journaldataArray;
+		
+		
+		//journals.(journaldataArray);
 		 
 		
 		
 		 
 		 FundsDAO journalDAO = (FundsDAO) context.getBean("FundsDAO");
-	     journalDAO.updateTable(journallookup);
+	     journalDAO.updateTable(journaldataArray);
 		
 		
 		
