@@ -5,10 +5,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 import com.charlie1.etlparser.*;
 
 import com.charlie1.etlvalidatejournal.*;
+import com.charlie1.simulate.simulator;
+import com.charlie1.etlwriteto.*;
 
 public class parseFolders  {
 	
@@ -154,12 +161,18 @@ public class parseFolders  {
 					System.out.println("     file:" + file.getCanonicalPath());
 				
 					    String[] bits = file.getName().split(".");
+					    
+					    
+					    
+					    
+					    
 					 //   String teststr = bits[bits.length - 1];
 					//    if (bits.length > 0 && bits[bits.length - 1].equalsIgnoreCase("jrn")) {
 					        // Do stuff with the file
 					    
 					  //   validatejournal.checkJournal();
 					    	
+					    String extType ="";
 					    
 					     	 String StrGetName = file.getName();
 					    	 String[] retjrn = StrGetName.split("\\.");
@@ -168,15 +181,21 @@ public class parseFolders  {
 					    	if (retjrn[1].equalsIgnoreCase("jrn")) {
 					    						 
 					    	journalID = retjrn[0];
-					    					
-					    	}	 	
+					    	extType = "JRN";
+					    					    					
+					    	}else {
+					    		
+					    		journalID = retjrn[0];
+					    		extType = "CSV";
+					    					    		
+					    	}
 					    
 					    	String strAbsPath = file.getAbsolutePath();
 					       	String strPath = file.getParent();
 					    	File subPath = new File(strPath);
 					    	String terminalID = subPath.getName();
 					   
-;					    	
+					    	
 					    	
 					    	
 					    	String strjournaltmp = strAbsPath;
@@ -198,12 +217,14 @@ public class parseFolders  {
 					    	validatejournal.setJournalName(journalID);
 					    	validatejournal.checkJournal();
 					    	
-					    	if(!validatejournal.isGetStatus()) {
+					    	if(!validatejournal.isGetStatus() && extType.equals("JRN")) {
 					    		
 					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
+					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
+					    		
+					    		srcfiles.parseCashStructured(strJournalData,terminalID,journalID);
+					    	
 					    	}
-					    	
-					    	
 					    	
 					    	
 					    //	srcfiles.parseCash(strJournalFile);
@@ -219,7 +240,166 @@ public class parseFolders  {
 		}
 	}
 
+public static void createDirectoryContents(File dir, int maxJournals,int maxtrans ,String journalDate, String starttime) {
 	
+	
+	
+	
+		
+		parser srcfiles = new parser();
+		simulator sim = new simulator();
+		
+		
+		
+		
+		
+	    
+		
+     //   String journalData = sim.getTransactionStr();
+        
+         
+        
+       
+		
+		
+		
+		
+		try {
+			File[] files = dir.listFiles();
+			for (File file : files) {
+				if (file.isDirectory()) {
+					System.out.println("directory:" + file.getCanonicalPath());
+					//createDirectoryContents(file);
+					
+					int i=0;
+					while (i <= maxJournals) {
+					
+					
+						
+						// Transaction Counter
+					     sim.setTransactioncnt(maxtrans);
+					     sim.setTransactionStartTime(starttime);
+					     sim.createTransactions();
+					    	
+						
+						
+						
+					
+					 // params to create journal
+				//	 sim.setJournalcnt(7);
+			         sim.setDayofMonth(1);
+			         sim.setJournalDay(journalDate);
+			         sim.createJournalFilesSingle();
+			         // set path to journal for creation
+			         String jrnName = sim.getJournalDaySingle();
+			         String canonicalPath = file.getCanonicalPath();
+			         canonicalPath +=  "\\";
+			         canonicalPath += jrnName;
+			         canonicalPath +=  ".csv";
+			         
+			        
+			 		
+
+			 		
+			         String transdata = sim.getTransactionStr();
+			         
+			         writetoDisk writeto = new writetoDisk();
+				     writeto.setCsvPath(canonicalPath);
+					 writeto.setJournalData(transdata);
+					 writeto.createCSV();
+						
+					
+					 journalDate = sim.getJournalDay();
+					 System.out.println(journalDate);
+					 i++;
+					
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				} else {
+					System.out.println("     file:" + file.getCanonicalPath());
+				
+					    String[] bits = file.getName().split(".");
+					    
+					    			    	
+					    String extType ="";
+					    
+					     	 String StrGetName = file.getName();
+					    	 String[] retjrn = StrGetName.split("\\.");
+					    	 String journalID = "";
+					    						 
+					    	if (retjrn[1].equalsIgnoreCase("jrn")) {
+					    						 
+					    	journalID = retjrn[0];
+					    	extType = "JRN";
+					    					    					
+					    	}else {
+					    		
+					    		journalID = retjrn[0];
+					    		extType = "CSV";
+					    					    		
+					    	}
+					    
+					    	String strAbsPath = file.getAbsolutePath();
+					       	String strPath = file.getParent();
+					    	File subPath = new File(strPath);
+					    	String terminalID = subPath.getName();
+					   
+					    	
+					    	
+					    	
+					    	String strjournaltmp = strAbsPath;
+					    	
+					    	FileInputStream fis = new FileInputStream(strjournaltmp);
+					    	byte[] data = new byte[(int) file.length()];
+					    	fis.read(data);
+					    	fis.close();
+					    	
+					    	
+					    	
+					    	
+
+					    	String strJournalData = new String(data, "UTF-8");
+					    	
+					        
+					    	
+					     	validatejournal.setTerminalID(terminalID);
+					    	validatejournal.setJournalName(journalID);
+					    	validatejournal.checkJournal();
+					    	
+					    	if(!validatejournal.isGetStatus() && extType.equals("JRN")) {
+					    		
+					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
+					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
+					    		
+					    		srcfiles.parseCashStructured(strJournalData,terminalID,journalID);
+					    	
+					    	}
+					    	
+					    	
+					    //	srcfiles.parseCash(strJournalFile);
+					    	
+					    				    	
+					//    }
+					
+					
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	
 	

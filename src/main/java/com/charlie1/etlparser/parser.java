@@ -332,7 +332,176 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 	}
 	
 	
+public static void parseCashStructured(String journal_,String terminalID,String journalID) {
 	
+	
+	
+	writetoDisk writetodisk = new writetoDisk();
+	validateJournal evaljrn = new validateJournal();
+	
+	
+	writetodisk.setCsvPath("c:\\home\\charlie\\dataMart.csv");
+	
+
+	char p;
+	
+//	String is = "is";
+//	String paragraph = "transaction is a test.";
+	String bufferStr="";
+	String bufferDigits="";
+	String buffer="";
+	String buffToDisk="";
+	String journalrecordBuffer="";
+	int sumValues=0;
+	
+	String journal = "01:20:29,Track 2 data:,CASH   200,Cash Taken,No Error\n\r"
+	+"01:20:46,Track 2 data:,CASH   300,Cash Taken,No Error\n\r"
+	+"01:20:50,Track 2 data:,CASH   50,Cash Taken,No Error\n\r";
+	
+	
+	
+	
+	String testCash = new String();
+	int sumval=0;
+
+
+	char lblCash[]= {'C','A','S','H',' ',' ',' ','\0'};
+	String strCash = "CASH   ";
+	int transCnt=0;
+	
+
+	String jrn = journal;
+	int jrnLength = jrn.length();
+	ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
+	ArrayList<transactionData> transArray = new ArrayList<transactionData>();
+	
+	
+	
+
+	
+	
+//	int paraLength = paragraph.length();
+	
+    int i=0;
+	while(i < jrnLength) {
+		
+		int j=0;
+		while(jrn.charAt(i) != lblCash[j] && i < jrnLength-1) {
+			i++;
+		
+			
+			
+			
+		}
+		
+		if(jrn.charAt(i) ==  lblCash[j]){
+			
+			if(j < lblCash.length)
+			while(jrn.charAt(i) ==  lblCash[j] && j < lblCash.length) {
+				
+				bufferStr+= jrn.charAt(i);
+				
+				
+				i++;
+				j++;
+			}
+			
+			if(bufferStr.equals(strCash))
+			{
+				
+				
+						
+				if(jrn.charAt(i) == ' ')
+					++i;
+				
+				
+				if(jrn.charAt(i) != 'D' && Character.isDigit(jrn.charAt(i))) {
+					
+					while(Character.isDigit(jrn.charAt(i))) {
+						bufferDigits+= jrn.charAt(i);
+						bufferStr+= jrn.charAt(i);
+						i++;
+					}
+					
+					
+					transCnt++;
+					buffer += bufferStr;
+					buffer += " ";
+					buffer += "\r\n";
+					System.out.println(bufferStr + " " + "Transaction Count" + " "+ transCnt+" Value "+sumval);
+					String csvFormat = "Transact ";
+					
+					
+					sumval = Integer.parseInt(bufferDigits);
+					
+					sumValues+=sumval;
+					
+					bufferDigits="";
+					
+					
+					
+				}else {
+					
+					
+					
+					bufferStr = "";
+								
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+			}else {
+				
+				bufferStr="";
+				
+			}
+			
+			
+			
+		}
+		
+		
+		i++;
+	}
+	
+	buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
+	writetodisk.setJournalData(buffToDisk);
+	writetodisk.writetoCSV();
+	// WE should check the status of the write to file but we cannot verify
+	sendJournalStatus sendjournalstatus= new sendJournalStatus();
+	journalLookup journallookup = new journalLookup();
+	journallookup.setTerminalID(terminalID);
+	journallookup.setJournalStatus(journalID);
+
+	
+	
+	sendTransactionData sendtran = new sendTransactionData();
+	transactionData transdata = new transactionData();
+	transdata.setTerminalID(terminalID);
+	transdata.setJournalID(journalID);
+	transdata.setAtm_value(sumValues);
+	transdata.setAtm_volume(transCnt);
+	
+	
+	transArray.add(transdata);
+	sendtran.setTransactionData(transArray);
+	sendtran.initialiseData();
+	journalStatusArray.add(journallookup);
+	sendjournalstatus.setJournaldata(journalStatusArray);
+	sendjournalstatus.initialiseData();
+	
+	//writetodisk.sendCSVtoMart();
+	
+		
+	
+	
+	
+}
 	
 	
 	

@@ -26,6 +26,7 @@ import com.charlie1.etl.model.selectFundsByFund;
 import com.charlie1.etlparser.parser;
 import com.charlie1.etlparsefolders.*;
 import com.charlie1.etlvalidatejournal.*;
+import com.charlie1.simulate.*;
 
 
 /**
@@ -90,6 +91,12 @@ public class App
      */
         
         
+       // simulator sim = new simulator();
+       // sim.createTransaction();
+        
+        
+        
+    /*    
         selectJournal journaldata = new selectJournal();
         validateJournal validatejrn = new validateJournal();
         selectJournal selectjournal = new selectJournal();
@@ -98,16 +105,24 @@ public class App
         
         App app = new App();
         app.setJsonStr(jsonStr);
-        
+        */
         
       //  String Static final journalDATAstr = app.getJsonStr();
         
         
         
-        File currentDir = new File("C:\\home\\charlie\\Custjrn");
-        parseFolders source = new parseFolders();
-        source.displayDirectoryContents(currentDir);
         
+        
+        
+     //   File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+        parseFolders source = new parseFolders();
+     //   source.displayDirectoryContents(currentDirLOG);
+        
+      //  File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+      //  source.displayDirectoryContents(currentDirCSV);
+        
+        File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+        source.createDirectoryContents(currentDirSim,32,85,"2010-10-01","09:00");
         
     
         String fundtmp = "{'Fund': 'PGMIX'}";
