@@ -6,6 +6,7 @@ import com.charlie1.etlwriteto.writetoDisk;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -330,7 +331,15 @@ public void createRandomFolders() {
 			int folder = generator.nextInt(9999999)+1000000;
 			
 			
-			 Path path = Paths.get("C:\\Directory2\\Sub2\\Sub-Sub2");
+			
+			String defaultPath = "C:\\home\\charlie\\Journaljrn\\";
+			String customPath="";
+			
+			
+			int i=0;
+			while(i <= 10);
+			 customPath += defaultPath;
+			 Path path = Paths.get(customPath);
 		        //if directory exists?
 		        if (!Files.exists(path)) {
 		            try {
@@ -341,9 +350,9 @@ public void createRandomFolders() {
 		            }
 		        }
 			
-	
-	
-}
+		    i++;
+			}
+
 
 	
 	

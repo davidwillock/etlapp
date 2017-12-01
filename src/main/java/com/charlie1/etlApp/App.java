@@ -121,9 +121,12 @@ public class App
       //  File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
       //  source.displayDirectoryContents(currentDirCSV);
         
-        File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-        source.createDirectoryContents(currentDirSim,32,85,"2010-10-01","09:00");
-        
+      //*****  File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+      //*****  source.createDirectoryContents(currentDirSim,32,85,"2010-10-01","09:00");
+       simulator sim = new simulator(); 
+       sim.createRandomFolders();
+       
+       
     
         String fundtmp = "{'Fund': 'PGMIX'}";
         
