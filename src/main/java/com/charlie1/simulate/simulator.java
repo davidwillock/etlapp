@@ -171,12 +171,18 @@ public class simulator {
 		int value = 0;
 		transactionstr="";
 		
+		 Date currentTime=null;
+		 Date date1=null;
+		 Date date2 = null;
+		
 		ArrayList<Integer> shufflenumbers=new ArrayList<Integer>();
 		shufflenumbers.add(10);
 		shufflenumbers.add(20);
 		shufflenumbers.add(50);
 		shufflenumbers.add(100);
 
+		
+		
 		
 			
 	
@@ -186,6 +192,7 @@ public class simulator {
 		
 	
 		 SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+		 SimpleDateFormat dfTime = new SimpleDateFormat("HH:mm:ss");
 		 Date d = null;
 		try {
 			d = df.parse(transactionStartTime);
@@ -201,18 +208,65 @@ public class simulator {
 		 String rtotalTime = transactionStartTime +":" +rsecond;
 		 System.out.println(rtotalTime);
 		
+		 String midnight = "23:59:59";
 		 
+		 try {
 		 
+		 currentTime = dfTime.parse(rtotalTime);
+		 date1 = dfTime.parse("09:00:00");
+		 date2 = dfTime.parse("22:00:00");
+		 }catch(Exception ex){
+			 
+			 ex.printStackTrace();
+		 }
 		// int c = random.nextBoolean() ? a : b;
 
-		 Collections.shuffle(shufflenumbers);
+		Collections.shuffle(shufflenumbers);
 		value =	shufflenumbers.get(0);
-		 
-		 
+		
+		
+		if(i == 2) {
+			
+			
+			 String transaction=rtotalTime+
+						",OUTOFSERVICE"+"\r\n";
+				
+				 transactionstr += transaction;
+			
+			Calendar calo = Calendar.getInstance();
+			 calo.setTime(d);
+			 calo.add(Calendar.MINUTE, 60);
+			 transactionStartTime = df.format(calo.getTime());
+			 int osecond = generator.nextInt(60)+10;
+			 String ototalTime = transactionStartTime +":" +osecond;
+			
+			
+			
+			
+			 transaction=ototalTime+
+					",INSERVICE"+"\r\n";
+			
+			 System.out.println(transaction);
+			 transactionstr += transaction;
+			 System.out.println(transaction);
+			
+		}else {
+		
+		
+		
+		if (currentTime.after(date1) && currentTime.before(date2)){
+			
+			String transaction=rtotalTime+",Track 2 data:,CASH   "+value+",Cash Taken,No Error \r\n";
+			System.out.println(transaction);
+			transactionstr += transaction;
+			
+					
+		}
 	
-		String transaction=rtotalTime+",Track 2 data:,CASH   "+value+",Cash Taken,No Error \r\n";
-		System.out.println(transaction);
-		transactionstr += transaction;
+	}
+//		String transaction=rtotalTime+",Track 2 data:,CASH   "+value+",Cash Taken,No Error \r\n";
+//		System.out.println(transaction);
+//		transactionstr += transaction;
 		
 		
 		i++;

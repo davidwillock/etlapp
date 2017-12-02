@@ -81,7 +81,11 @@ public class sendTransactionData {
 	
 	
 	
-	
+	public void initializeBean() {
+		
+		
+		
+	}
 	
 	
 	

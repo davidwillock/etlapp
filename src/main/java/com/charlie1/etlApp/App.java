@@ -120,16 +120,16 @@ public class App
         
       
       //  Parse Structured Data
-        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-        source.displayDirectoryContents(currentDirCSV);
+       //*** File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+       //**** source.displayDirectoryContents(currentDirCSV);
         
      
         // Simulation Stuff**********************
         
         
         // Create Simulator Transactions
-        //**File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-        //**source.createDirectoryContents(currentDirSim,2,2,"2010-10-01","09:00");
+        File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+        source.createDirectoryContents(currentDirSim,2,5,"2010-10-01","09:00");
       
         
        // Create Random Folders  
