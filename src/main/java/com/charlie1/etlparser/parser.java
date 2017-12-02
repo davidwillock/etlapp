@@ -332,6 +332,196 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 	}
 	
 	
+public static void parseCashUptime(String journal,String terminalID,String journalID) {
+	
+	
+	
+	writetoDisk writetodisk = new writetoDisk();
+	validateJournal evaljrn = new validateJournal();
+	
+	
+	writetodisk.setCsvPath("c:\\home\\charlie\\dataMart.csv");
+	
+
+	char p;
+	
+//	String is = "is";
+//	String paragraph = "transaction is a test.";
+	String bufferStr="";
+	String bufferDigits="";
+	String buffer="";
+	String buffToDisk="";
+	String journalrecordBuffer="";
+	int sumValues=0;
+	
+	String testCash = new String();
+	int sumval=0;
+
+
+	char lblCash[]= {'C','A','S','H',' ',' ',' ','\0'};
+	char lblCashTaken[]= {'C','a','s','h',' ','T','a','k','e','n','\0'};
+	String strCash = "CASH   ";
+	String strCashTaken = "Cash Taken";
+	String strError = "*";
+	char lblError[]= {'*','\0'};
+	
+	
+	int transCnt=0;
+	
+
+	String jrn = journal;
+	int jrnLength = jrn.length();
+	ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
+	ArrayList<transactionData> transArray = new ArrayList<transactionData>();
+	
+	String commdata = "*204*18:07:59 Communication error"
+	+"17:52:34 Cash presented\r\n" + 
+	" 936 AIB NSC  931063 CASH    40   17:52:36 Cash taken "
+	+"*204*17:53:59 Communication error"
+	+"18:50:34 Cash presented\r\n" + 
+	" 936 AIB NSC  931063 CASH    40   17:52:36 Cash taken ";
+	
+
+	
+	
+//	int paraLength = paragraph.length();
+	
+    int i=0;
+	while(i < jrnLength) {
+		
+		int j=0;
+		while(jrn.charAt(i) != lblError[j] && i < jrnLength-1) {
+			i++;
+		
+			
+			
+			
+		}
+		
+				
+			while(Character.isDigit(jrn.charAt(i))) {
+				i++;
+				
+			}
+			
+			if(jrn.charAt(i) ==  lblError[i]){
+				
+				if(j < lblError.length)
+				 while(Character.isDigit(jrn.charAt(i))) {
+					
+					bufferStr+= jrn.charAt(i);
+									
+					i++;
+					j++;
+				}
+		
+			
+				while(jrn.charAt(i) != lblError[j] && i < jrnLength-1) {
+					i++;
+				}
+			
+				
+			
+				while(jrn.charAt(i) ==  lblError[j] && j < lblError.length) {
+					
+					bufferStr+= jrn.charAt(i);
+					
+					
+					i++;
+					j++;
+				}
+				
+				
+				
+			
+			
+			if(bufferStr.equals(strCash))
+			{
+				
+			
+				i++;
+								
+					transCnt++;
+					buffer += bufferStr;
+					buffer += " ";
+					buffer += "\r\n";
+					System.out.println(bufferStr + " " + "Transaction Count" + " "+ transCnt+" Value "+sumval);
+					String csvFormat = "Transact ";
+					
+					
+					sumval = Integer.parseInt(bufferDigits);
+					
+					sumValues+=sumval;
+					
+					bufferDigits="";
+	
+					
+				}else {
+					
+					
+					
+					bufferStr = "";
+								
+				}
+				
+				
+	//		}else {
+				
+	//			bufferStr="";
+				
+	//		}
+			
+			
+			
+		}
+		
+		
+		i++;
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
+	writetodisk.setJournalData(buffToDisk);
+	writetodisk.writetoCSV();
+	// WE should check the status of the write to file but we cannot verify
+	sendJournalStatus sendjournalstatus= new sendJournalStatus();
+	journalLookup journallookup = new journalLookup();
+	journallookup.setTerminalID(terminalID);
+	journallookup.setJournalStatus(journalID);
+
+	
+	
+	sendTransactionData sendtran = new sendTransactionData();
+	transactionData transdata = new transactionData();
+	transdata.setTerminalID(terminalID);
+	transdata.setJournalID(journalID);
+	transdata.setAtm_value(sumValues);
+	transdata.setAtm_volume(transCnt);
+	
+	
+	transArray.add(transdata);
+	sendtran.setTransactionData(transArray);
+	sendtran.initialiseData();
+	journalStatusArray.add(journallookup);
+	sendjournalstatus.setJournaldata(journalStatusArray);
+	sendjournalstatus.initialiseData();
+	
+	//writetodisk.sendCSVtoMart();
+	
+		
+	
+	
+	
+}
+
+
 public static void parseCashStructured(String journal_,String terminalID,String journalID) {
 	
 	
