@@ -169,6 +169,7 @@ public class simulator {
 	public void createTransactions() {
 		
 		int value = 0;
+		transactionstr="";
 		
 		ArrayList<Integer> shufflenumbers=new ArrayList<Integer>();
 		shufflenumbers.add(10);
@@ -283,7 +284,7 @@ public void createJournalFilesSingle() {
 	
 	
 	int value = 0;
-	Random generator = new Random();
+	//Random generator = new Random();
 
 			
 	
@@ -328,17 +329,24 @@ public void createJournalFilesSingle() {
 public void createRandomFolders() {
 	
 			Random generator = new Random();
-			int folder = generator.nextInt(9999999)+1000000;
+			int folderName = 0;
+			String folderPrefix ="00";
+			
+			//.nextInt(9999999)+1000000;
 			
 			
 			
 			String defaultPath = "C:\\home\\charlie\\Journaljrn\\";
-			String customPath="";
+			String customPrefix="00";
+			//String customPath="";
 			
 			
 			int i=0;
-			while(i <= 10);
-			 customPath += defaultPath;
+			while(i <= 10) {
+		     
+			 folderName = generator.nextInt(55555555)+10000000;
+			 String customPath = defaultPath+customPrefix+folderName;
+			 
 			 Path path = Paths.get(customPath);
 		        //if directory exists?
 		        if (!Files.exists(path)) {
@@ -351,10 +359,10 @@ public void createRandomFolders() {
 		        }
 			
 		    i++;
+		    System.out.println(customPath);
 			}
 
 
-	
-	
+}
 	
 }

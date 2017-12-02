@@ -354,11 +354,11 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	String journalrecordBuffer="";
 	int sumValues=0;
 	
-	String journal = "01:20:29,Track 2 data:,CASH   200,Cash Taken,No Error\n\r"
-	+"01:20:46,Track 2 data:,CASH   300,Cash Taken,No Error\n\r"
-	+"01:20:50,Track 2 data:,CASH   50,Cash Taken,No Error\n\r";
+	//String journal = "01:20:29,Track 2 data:,CASH   200,Cash Taken,No Error\n\r"
+	//+"01:20:46,Track 2 data:,CASH   300,Cash Taken,No Error\n\r"
+	//+"01:20:50,Track 2 data:,CASH   50,Cash Taken,No Error\n\r";
 	
-	
+	String journal = journal_;
 	
 	
 	String testCash = new String();
@@ -424,6 +424,13 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 					}
 					
 					
+					sumval = Integer.parseInt(bufferDigits);
+					
+					sumValues+=sumval;
+					
+					bufferDigits="";
+					
+					
 					transCnt++;
 					buffer += bufferStr;
 					buffer += " ";
@@ -432,11 +439,7 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 					String csvFormat = "Transact ";
 					
 					
-					sumval = Integer.parseInt(bufferDigits);
-					
-					sumValues+=sumval;
-					
-					bufferDigits="";
+				
 					
 					
 					
@@ -494,6 +497,9 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	journalStatusArray.add(journallookup);
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
+	
+	sumValues =0;
+	transCnt =0;
 	
 	//writetodisk.sendCSVtoMart();
 	

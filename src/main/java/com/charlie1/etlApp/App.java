@@ -113,20 +113,31 @@ public class App
         
         
         
-        
+     // Parse Unstructured Data   
      //   File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
      //   source.displayDirectoryContents(currentDirLOG);
         
-      //  File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-      //  source.displayDirectoryContents(currentDirCSV);
+      
+      //  Parse Structured Data
+        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+        source.displayDirectoryContents(currentDirCSV);
         
-      //*****  File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-      //*****  source.createDirectoryContents(currentDirSim,32,85,"2010-10-01","09:00");
+     
+        // Simulation Stuff**********************
+        
+        
+        // Create Simulator Transactions
+        //**File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+        //**source.createDirectoryContents(currentDirSim,2,2,"2010-10-01","09:00");
+      
+        
+       // Create Random Folders  
        simulator sim = new simulator(); 
        sim.createRandomFolders();
        
-       
+       /*
+        disabled last
     
         String fundtmp = "{'Fund': 'PGMIX'}";
         
@@ -149,7 +160,7 @@ public class App
         parser getR = new parser();
         getR.rUtility();
         System.out.println("Complete");
-       
+       */
         /*
         String dummy ="";
         

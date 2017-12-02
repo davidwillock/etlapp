@@ -245,14 +245,13 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 	
 	
 	
-		
+		String jrnName="";
 		parser srcfiles = new parser();
 		simulator sim = new simulator();
+		String orgJrnDate = journalDate;
 		
 		
-		
-		
-		
+		 
 	    
 		
      //   String journalData = sim.getTransactionStr();
@@ -267,38 +266,65 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 		try {
 			File[] files = dir.listFiles();
 			for (File file : files) {
+				
+				 journalDate = orgJrnDate;
+				 
+				 sim.setJournalDay(journalDate);
+		         sim.createJournalFilesSingle();
+		         jrnName = sim.getJournalDaySingle();
+				 
+				 
+				
 				if (file.isDirectory()) {
 					System.out.println("directory:" + file.getCanonicalPath());
 					//createDirectoryContents(file);
 					
-					int i=0;
+					int i=1;
 					while (i <= maxJournals) {
 					
 					
+					
+									
+					     
+					     if(i == 1) {
+					    	 
+					    	 
+					    	 sim.setDayofMonth(0);
+					         					
+					    	 
+					    	 	    	 
+					    	 
+					     }else {
 						
-						// Transaction Counter
+					      	 sim.setDayofMonth(1);
+						
+					     }
+					 // params to create journal
+				//	 sim.setJournalcnt(7);
+			       
+			         
+			         // set path to journal for creation
+					     
 					     sim.setTransactioncnt(maxtrans);
 					     sim.setTransactionStartTime(starttime);
 					     sim.createTransactions();
-					    	
-						
-						
-						
-					
-					 // params to create journal
-				//	 sim.setJournalcnt(7);
-			         sim.setDayofMonth(1);
-			         sim.setJournalDay(journalDate);
-			         sim.createJournalFilesSingle();
-			         // set path to journal for creation
-			         String jrnName = sim.getJournalDaySingle();
+					     
+					     
+					     
+			         
+			         
 			         String canonicalPath = file.getCanonicalPath();
 			         canonicalPath +=  "\\";
 			         canonicalPath += jrnName;
 			         canonicalPath +=  ".csv";
 			         
+			      //   sim.setDayofMonth(1);
+			         sim.setJournalDay(journalDate);
+			         sim.createJournalFilesSingle();
+			         jrnName = sim.getJournalDaySingle();
+			         
 			        
-			 		
+					 
 
 			 		
 			         String transdata = sim.getTransactionStr();
@@ -311,6 +337,11 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 					
 					 journalDate = sim.getJournalDay();
 					 System.out.println(journalDate);
+					 
+					 
+					 
+					 
+					 
 					 i++;
 					
 					}
@@ -326,75 +357,15 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 					
 					
 					
-				} else {
-					System.out.println("     file:" + file.getCanonicalPath());
+	
+				}	
 				
-					    String[] bits = file.getName().split(".");
-					    
-					    			    	
-					    String extType ="";
-					    
-					     	 String StrGetName = file.getName();
-					    	 String[] retjrn = StrGetName.split("\\.");
-					    	 String journalID = "";
-					    						 
-					    	if (retjrn[1].equalsIgnoreCase("jrn")) {
-					    						 
-					    	journalID = retjrn[0];
-					    	extType = "JRN";
-					    					    					
-					    	}else {
-					    		
-					    		journalID = retjrn[0];
-					    		extType = "CSV";
-					    					    		
-					    	}
-					    
-					    	String strAbsPath = file.getAbsolutePath();
-					       	String strPath = file.getParent();
-					    	File subPath = new File(strPath);
-					    	String terminalID = subPath.getName();
-					   
-					    	
-					    	
-					    	
-					    	String strjournaltmp = strAbsPath;
-					    	
-					    	FileInputStream fis = new FileInputStream(strjournaltmp);
-					    	byte[] data = new byte[(int) file.length()];
-					    	fis.read(data);
-					    	fis.close();
-					    	
-					    	
-					    	
-					    	
-
-					    	String strJournalData = new String(data, "UTF-8");
-					    	
-					        
-					    	
-					     	validatejournal.setTerminalID(terminalID);
-					    	validatejournal.setJournalName(journalID);
-					    	validatejournal.checkJournal();
-					    	
-					    	if(!validatejournal.isGetStatus() && extType.equals("JRN")) {
-					    		
-					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
-					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
-					    		
-					    		srcfiles.parseCashStructured(strJournalData,terminalID,journalID);
-					    	
-					    	}
-					    	
-					    	
-					    //	srcfiles.parseCash(strJournalFile);
-					    	
-					    				    	
-					//    }
-					
-					
-				}
-			}
+				
+				//
+				
+				
+				} 
+				
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
