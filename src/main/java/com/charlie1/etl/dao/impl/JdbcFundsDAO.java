@@ -1180,7 +1180,7 @@ public	  String buildStrIDX() {
  			transactionData transdata = new transactionData();
 
  			String sql = "INSERT INTO Transactions " +
- 					"(TerminalID, JournalID,Atm_value,Atm_volume ) VALUES (?, ?, ?,?)";
+ 					"(TerminalID, JournalID,Atm_value,Atm_volume,Uptime ) VALUES (?, ?, ?,?,?)";
  			
  			
  		//	String sql = "Update JournalLookup  set JournalStatus = " +
@@ -1195,6 +1195,7 @@ public	  String buildStrIDX() {
  						ps.setString(2, transdata.getJournalID());
  						ps.setInt(3, transdata.getAtm_value());
  						ps.setInt(4, transdata.getAtm_volume());
+ 						ps.setInt(5, transdata.getUptime());
  					}
  					
  					@Override

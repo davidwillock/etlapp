@@ -114,9 +114,11 @@ public class App
         
         
      // Parse Unstructured Data   
-     //   File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+       //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+        
+        File currentDirLOG = new File("C:\\home\\charlie\\software\\server backup\\Dev server backup\\Custjrn");
         parseFolders source = new parseFolders();
-     //   source.displayDirectoryContents(currentDirLOG);
+        source.displayDirectoryContents(currentDirLOG);
         
       
       //  Parse Structured Data
@@ -128,13 +130,22 @@ public class App
         
         
         // Create Simulator Transactions
-        File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-        source.createDirectoryContents(currentDirSim,2,5,"2010-10-01","09:00");
+      //***  File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+      //***  source.createDirectoryContents(currentDirSim,2,5,"2010-10-01","09:00");
       
         
        // Create Random Folders  
-       simulator sim = new simulator(); 
-       sim.createRandomFolders();
+       //simulator sim = new simulator(); 
+       //sim.createRandomFolders();
+       
+       
+       
+       parser test = new parser();
+       
+//       test.parseCashUptime("", "", "");
+       
+       
+       
        
        /*
         disabled last

@@ -1,11 +1,17 @@
 package com.charlie1.etlparser;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 //import org.rosuda.REngine.*;
 
 
 //import org.rosuda.REngine;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 import org.rosuda.JRI.Rengine;
 import com.charlie1.etlwriteto.*;
@@ -21,6 +27,10 @@ public class parser {
 	
 	
 		// TODO Auto-generated method stubd
+	
+	static int countBuffers = 0;
+	static ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
+	static ArrayList<transactionData> transArray = new ArrayList<transactionData>();
 	
 	public void rUtility() {
 		
@@ -202,8 +212,7 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 	
 		String jrn = journal;
 		int jrnLength = jrn.length();
-		ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
-		ArrayList<transactionData> transArray = new ArrayList<transactionData>();
+		
 		
 		
 		
@@ -297,7 +306,68 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 			i++;
 		}
 		
-		buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
+		//long uptime =  parseCashUptime(journal,"","");
+		 Random generator = new Random();
+		 int rpercent =0;
+		 if (transCnt < 10) {
+			 
+			rpercent = generator.nextInt(10)+1;
+			 
+		 }else if(transCnt < 20) {
+			 
+			 rpercent = generator.nextInt(20)+15;
+			 
+		 }else if(transCnt < 30) {
+			 
+			 rpercent = generator.nextInt(30)+25;
+			 
+		 }else if(transCnt < 40) {
+			 
+			 rpercent = generator.nextInt(40)+35;
+			 
+		 }else if(transCnt < 50 ) {
+			 
+			 rpercent = generator.nextInt(50)+45;
+			 
+		 }else if(transCnt < 60 ) {
+			 
+			 rpercent = generator.nextInt(60)+55;
+			 
+		 }else if(transCnt < 70) {
+			 
+			 rpercent = generator.nextInt(70)+65;
+			 
+		 }else if(transCnt < 80) {
+			 
+			 rpercent = generator.nextInt(80)+75;
+			 
+			 
+		 }else if( transCnt < 90) {
+			 
+			 rpercent = generator.nextInt(90)+94;
+			 
+			 
+		 }else if(transCnt < 100) {
+			 
+			 rpercent = generator.nextInt(95)+97;
+			 
+			 
+		 }else if(transCnt < 500) {
+			 
+			 
+			 rpercent = generator.nextInt(100)+97;
+			 
+		 }
+		 
+		 
+		 
+		 
+		
+		
+		
+		
+		//buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+","+uptime+"\r\n";
+		buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+","+rpercent+"\r\n";
 		writetodisk.setJournalData(buffToDisk);
 		writetodisk.writetoCSV();
 		// WE should check the status of the write to file but we cannot verify
@@ -314,25 +384,29 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 		transdata.setJournalID(journalID);
 		transdata.setAtm_value(sumValues);
 		transdata.setAtm_volume(transCnt);
+		transdata.setUptime(rpercent);
 		
 		
 		transArray.add(transdata);
+		journalStatusArray.add(journallookup);
+		
+		if(countBuffers > 20) {
 		sendtran.setTransactionData(transArray);
 		sendtran.initialiseData();
-		journalStatusArray.add(journallookup);
 		sendjournalstatus.setJournaldata(journalStatusArray);
 		sendjournalstatus.initialiseData();
-		
+		countBuffers = 0;
+		}
 		//writetodisk.sendCSVtoMart();
 		
 			
 		
 		
-		
+		countBuffers++;
 	}
 	
 	
-public static void parseCashUptime(String journal,String terminalID,String journalID) {
+public static long parseCashUptime(String journal,String terminalID,String journalID) {
 	
 	
 	
@@ -347,7 +421,7 @@ public static void parseCashUptime(String journal,String terminalID,String journ
 	
 //	String is = "is";
 //	String paragraph = "transaction is a test.";
-	String bufferStr="";
+//	String bufferStr="";
 	String bufferDigits="";
 	String buffer="";
 	String buffToDisk="";
@@ -359,14 +433,28 @@ public static void parseCashUptime(String journal,String terminalID,String journ
 
 
 	char lblCash[]= {'C','A','S','H',' ',' ',' ','\0'};
-	char lblCashTaken[]= {'C','a','s','h',' ','T','a','k','e','n','\0'};
+	char lblCashTaken[]= {'C','a','s','h',' ','t','a','k','e','n','\0'};
 	String strCash = "CASH   ";
-	String strCashTaken = "Cash Taken";
+	String strCashTaken = "Cash taken";
 	String strError = "*";
 	char lblError[]= {'*','\0'};
+	String cashTakenTime ="";
+	String errorType="";
+	String errorTime="";
+    long shophours = 43200;
 	
 	
 	int transCnt=0;
+	
+	
+	String commdata = " *204*18:07:59 Communication error"+"\r\n"
+			+" 17:52:34 Cash taken\r\n" + 
+			" 936 AIB NSC  931063 CASH    40   17:52:36 Cash taken "
+			+"*204*17:53:59 Communication error\r\n"
+			+" 18:50:34 Cash presented\r\n" + 
+			" 936 AIB NSC  931063 CASH    40   17:52:36 Cash taken "+"\r\n";
+			
+	
 	
 
 	String jrn = journal;
@@ -374,12 +462,6 @@ public static void parseCashUptime(String journal,String terminalID,String journ
 	ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
 	ArrayList<transactionData> transArray = new ArrayList<transactionData>();
 	
-	String commdata = "*204*18:07:59 Communication error"
-	+"17:52:34 Cash presented\r\n" + 
-	" 936 AIB NSC  931063 CASH    40   17:52:36 Cash taken "
-	+"*204*17:53:59 Communication error"
-	+"18:50:34 Cash presented\r\n" + 
-	" 936 AIB NSC  931063 CASH    40   17:52:36 Cash taken ";
 	
 
 	
@@ -397,83 +479,166 @@ public static void parseCashUptime(String journal,String terminalID,String journ
 			
 			
 		}
-		
+		i++;
 				
-			while(Character.isDigit(jrn.charAt(i))) {
+			while(i < jrn.length()-1 &&Character.isDigit(jrn.charAt(i))) {
 				i++;
 				
 			}
 			
-			if(jrn.charAt(i) ==  lblError[i]){
+			if(i < jrn.length() && jrn.charAt(i) ==  lblError[0]){
 				
-				if(j < lblError.length)
-				 while(Character.isDigit(jrn.charAt(i))) {
+				i++;
+			
+				 while(i < jrn.length() && jrn.charAt(i) != ' ') {
 					
-					bufferStr+= jrn.charAt(i);
+					errorTime+= jrn.charAt(i);
 									
 					i++;
-					j++;
-				}
-		
-			
-				while(jrn.charAt(i) != lblError[j] && i < jrnLength-1) {
-					i++;
-				}
-			
 				
-			
-				while(jrn.charAt(i) ==  lblError[j] && j < lblError.length) {
+				 }
+				 
+				 
+				 
+				 errorType = "";
+				 int index = i;
+				 i++;
+				 switch(jrn.charAt(i)) {
+				 
+				 case 'S':
+					 
+					 	errorType = findError(i,jrn);
+					 		
+					break;
+				 case 'C':
+					 
+					 	errorType = findError(i,jrn);
+					 break;
+					 
+				 default:
+					 
+					 break;
+					 
+					 
+				 }
+				 
+				 j=0;
+				 if(errorTime != "" && errorType != "") {
+					 
 					
-					bufferStr+= jrn.charAt(i);
-					
-					
-					i++;
-					j++;
-				}
+					 
+					 while(jrn.charAt(i) != jrn.length()-1) {
+					 
+					 String findBuffer="";
+					 while(jrn.charAt(i) != 'C' && i < jrn.length()-1  ) {
+						 
+						 findBuffer+=jrn.charAt(i);
+						 
+						 i++;
+						 
+					 }
+					 
+					 
+					//i++;
+					j=0;
+					String bufferCash="";
+					int tmplocation =0;
+					if(jrn.charAt(i) == lblCashTaken[j])
+						
+					while(jrn.charAt(i) ==  lblCashTaken[j] && j < lblCashTaken.length) {
+							
+						bufferCash+= jrn.charAt(i);
+							
+							
+							i++;
+							j++;
+						}
+					 
+					if(bufferCash.equals(strCashTaken))	 {
+					 
+					 tmplocation = i;
+					 
+					 String bufferwhere ="";
+					 while(jrn.charAt(i) != 'C' )
+					 {
+						 bufferwhere+=jrn.charAt(i);
+						 --i; 
+					 }
 				
-				
-				
-			
-			
-			if(bufferStr.equals(strCash))
-			{
-				
-			
-				i++;
-								
-					transCnt++;
-					buffer += bufferStr;
-					buffer += " ";
-					buffer += "\r\n";
-					System.out.println(bufferStr + " " + "Transaction Count" + " "+ transCnt+" Value "+sumval);
-					String csvFormat = "Transact ";
-					
-					
-					sumval = Integer.parseInt(bufferDigits);
-					
-					sumValues+=sumval;
-					
-					bufferDigits="";
-	
-					
-				}else {
-					
-					
-					
-					bufferStr = "";
-								
-				}
-				
-				
-	//		}else {
-				
-	//			bufferStr="";
-				
-	//		}
-			
-			
-			
-		}
+					 --i; 
+					 bufferwhere+=jrn.charAt(i);
+					 --i;
+					 bufferwhere+=jrn.charAt(i);
+					 while(jrn.charAt(i) != ' ') {--i;}
+					 bufferwhere+=jrn.charAt(i);
+					 i++;
+					 while(i < jrn.length()-1 && jrn.charAt(i) != ' ') {
+						 
+						 cashTakenTime+= jrn.charAt(i);
+						 i++;
+						 
+					 }
+					 
+					 if(cashTakenTime != "") {
+					 
+						 	i = tmplocation;
+						 	
+						 	System.out.println(errorType+" "+errorTime+" "+cashTakenTime);
+						 	//SimpleDateFormat 
+						 	
+						 	
+						 	
+						 	 SimpleDateFormat dfstartTimeformat = new SimpleDateFormat("HH:mm:ss");
+							 Date startDate = null;
+							 Date endDate = null;
+							try {
+								startDate = dfstartTimeformat.parse(errorTime);
+								endDate = dfstartTimeformat.parse(cashTakenTime);
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} 
+							
+							long diff = startDate.getTime() - endDate.getTime();
+							 
+							long diffSeconds = diff / 1000 % 60;
+							
+							/*
+							 Calendar cal = Calendar.getInstance();
+							 cal.setTime(d);
+							 cal.add(Calendar.MINUTE, 10);
+							 transactionStartTime = df.format(cal.getTime());
+							 int rsecond = generator.nextInt(60)+10;
+							 String rtotalTime = transactionStartTime +":" +rsecond;
+							 System.out.println(rtotalTime);
+						 	*/
+							
+						    
+							shophours -= diffSeconds;
+							
+							System.out.println("Uptime:  "+shophours);
+						 	
+						 	
+						 	
+						 	
+						 	
+						 	
+						 	
+						 	
+						 	errorType="";
+						 	errorTime="";
+						 	cashTakenTime="";
+						 	break;
+						 	
+					 }
+					 }
+					 
+				 }
+					 
+					 
+				 } // while loop find cashtaken
+				 
+			}
 		
 		
 		i++;
@@ -481,11 +646,11 @@ public static void parseCashUptime(String journal,String terminalID,String journ
 	
 
 	
+     return shophours;
+
 	
 	
-	
-	
-	
+	/*
 	
 	buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
 	writetodisk.setJournalData(buffToDisk);
@@ -512,7 +677,7 @@ public static void parseCashUptime(String journal,String terminalID,String journ
 	journalStatusArray.add(journallookup);
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
-	
+	*/
 	//writetodisk.sendCSVtoMart();
 	
 		
@@ -662,6 +827,63 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 		i++;
 	}
 	
+	
+	 Random generator = new Random();
+	 int rpercent =0;
+	 if (transCnt < 10) {
+		 
+		rpercent = generator.nextInt(10)+1;
+		 
+	 }else if(transCnt < 20) {
+		 
+		 rpercent = generator.nextInt(20)+10;
+		 
+	 }else if(transCnt < 30) {
+		 
+		 rpercent = generator.nextInt(40)+20;
+		 
+	 }else if(transCnt < 40) {
+		 
+		 rpercent = generator.nextInt(50)+30;
+		 
+	 }else if(transCnt < 50 ) {
+		 
+		 rpercent = generator.nextInt(60)+40;
+		 
+	 }else if(transCnt < 60 ) {
+		 
+		 rpercent = generator.nextInt(60)+45;
+		 
+	 }else if(transCnt < 70) {
+		 
+		 rpercent = generator.nextInt(70)+55;
+		 
+	 }else if(transCnt < 80) {
+		 
+		 rpercent = generator.nextInt(80)+70;
+		 
+		 
+	 }else if( transCnt < 90) {
+		 
+		 rpercent = generator.nextInt(90)+75;
+		 
+		 
+	 }else if(transCnt < 100) {
+		 
+		 rpercent = generator.nextInt(95)+80;
+		 
+		 
+	 }else if(transCnt < 500) {
+		 
+		 
+		 rpercent = generator.nextInt(101)+80;
+		 
+	 }
+	 
+	 
+	 
+	
+	
 	buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
 	writetodisk.setJournalData(buffToDisk);
 	writetodisk.writetoCSV();
@@ -679,15 +901,38 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	transdata.setJournalID(journalID);
 	transdata.setAtm_value(sumValues);
 	transdata.setAtm_volume(transCnt);
+	transdata.setUptime(rpercent);
+	
+	
+	
+
+	transArray.add(transdata);
+	journalStatusArray.add(journallookup);
+	
 	
 	
 	transArray.add(transdata);
+	journalStatusArray.add(journallookup);
+	
+	if(countBuffers > 20) {
+	sendtran.setTransactionData(transArray);
+	sendtran.initialiseData();
+	sendjournalstatus.setJournaldata(journalStatusArray);
+	sendjournalstatus.initialiseData();
+	countBuffers = 0;
+	}
+	
+	
+	
+	
+	
+	/*
 	sendtran.setTransactionData(transArray);
 	sendtran.initialiseData();
 	journalStatusArray.add(journallookup);
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
-	
+	*/
 	sumValues =0;
 	transCnt =0;
 	
@@ -700,6 +945,30 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 }
 	
 	
+
+
+public static String findError(int index, String journal) {
+	
+	String bufferStr ="";
+	
+	int i = index;
+	while(journal.charAt(i) != '\n') {
+		
+		bufferStr+= journal.charAt(i); 
+		i++;	
+			
+		}
+			
+	
+	
+	return bufferStr;
+	
+	
+}
+
+
+
+
 	
 	
 

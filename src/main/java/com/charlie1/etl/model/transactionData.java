@@ -10,8 +10,18 @@ public class transactionData {
 	String journalID;
 	int atm_value;
 	int atm_volume;
+	int uptime;
 	
 	
+	public int getUptime() {
+		return uptime;
+	}
+	public void setUptime(int uptime) {
+		this.uptime = uptime;
+	}
+
+
+
 	String terminalID;
 	public String getTerminalID() {
 		return terminalID;
