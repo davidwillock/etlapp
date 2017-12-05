@@ -390,7 +390,7 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 		transArray.add(transdata);
 		journalStatusArray.add(journallookup);
 		
-		if(countBuffers > 20) {
+		if(countBuffers > 5000) {
 		sendtran.setTransactionData(transArray);
 		sendtran.initialiseData();
 		sendjournalstatus.setJournaldata(journalStatusArray);
@@ -727,8 +727,8 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 
 	String jrn = journal;
 	int jrnLength = jrn.length();
-	ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
-	ArrayList<transactionData> transArray = new ArrayList<transactionData>();
+	//ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
+	//ArrayList<transactionData> transArray = new ArrayList<transactionData>();
 	
 	
 	
@@ -879,11 +879,7 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 		 rpercent = generator.nextInt(101)+80;
 		 
 	 }
-	 
-	 
-	 
-	
-	
+	 	
 	buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+"\r\n";
 	writetodisk.setJournalData(buffToDisk);
 	writetodisk.writetoCSV();
@@ -906,15 +902,13 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	
 	
 
-	transArray.add(transdata);
-	journalStatusArray.add(journallookup);
 	
 	
 	
 	transArray.add(transdata);
 	journalStatusArray.add(journallookup);
 	
-	if(countBuffers > 20) {
+	if(countBuffers > 5000) {
 	sendtran.setTransactionData(transArray);
 	sendtran.initialiseData();
 	sendjournalstatus.setJournaldata(journalStatusArray);
@@ -939,7 +933,7 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	//writetodisk.sendCSVtoMart();
 	
 		
-	
+	countBuffers++;
 	
 	
 }

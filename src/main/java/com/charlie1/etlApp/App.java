@@ -116,26 +116,27 @@ public class App
      // Parse Unstructured Data   
        //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         
-        File currentDirLOG = new File("C:\\home\\charlie\\software\\server backup\\Dev server backup\\Custjrn");
+        //**File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
-        source.displayDirectoryContents(currentDirLOG);
+        //source.displayDirectoryContents(currentDirLOG);
         
       
       //  Parse Structured Data
-       //*** File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-       //**** source.displayDirectoryContents(currentDirCSV);
+        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+        source.displayDirectoryContents(currentDirCSV);
         
      
         // Simulation Stuff**********************
         
         
         // Create Simulator Transactions
-      //***  File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-      //***  source.createDirectoryContents(currentDirSim,2,5,"2010-10-01","09:00");
+        //File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+        //source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
       
         
        // Create Random Folders  
-       //simulator sim = new simulator(); 
+       //**simulator sim = new simulator(); 
+       //sim.setCreatefolders(70);
        //sim.createRandomFolders();
        
        

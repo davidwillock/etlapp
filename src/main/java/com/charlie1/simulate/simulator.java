@@ -35,8 +35,20 @@ public class simulator {
 	String journalDaySingle="";
 	
 	String transactionStartTime="";
+	
+	int createfolders=0;
 
 	
+	public int getCreatefolders() {
+		return createfolders;
+	}
+
+
+	public void setCreatefolders(int createfolders) {
+		this.createfolders = createfolders;
+	}
+
+
 	public simulator() {}
 	
 	
@@ -152,7 +164,8 @@ public class simulator {
 			
 		}
 	
-	
+	// Create folders
+		
 	
 	
 	
@@ -396,7 +409,7 @@ public void createRandomFolders() {
 			
 			
 			int i=0;
-			while(i <= 10) {
+			while(i <= createfolders) {
 		     
 			 folderName = generator.nextInt(55555555)+10000000;
 			 String customPath = defaultPath+customPrefix+folderName;

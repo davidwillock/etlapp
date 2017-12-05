@@ -1,0 +1,152 @@
+html, body, table, td, th, h1, h2, h3, h4, h5, h6, p, a, span, div
+{
+	font-family: HelveticaNeueLTCom-Roman, Helvetica, Arial,  sans-serif;
+	font-size: 12px;
+	margin:0px;
+}
+
+body
+{
+    background:url("/resources/images/BGGradient.jpg") repeat-x top left;
+}
+
+img
+{
+	border: none;
+}
+
+
+
+ h1.StatsHeader
+{
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0 0 5px 0;
+}
+
+.FundStatsMain
+{float:none;
+    background-color:#ffffff;
+   	color:#333333;
+	margin:0px;
+	font-size:12px;
+padding:20px;
+
+    }
+
+
+
+.StatsPerfHorizLbl1
+{font-size:12px;
+ padding-bottom:5px;
+ padding-top:5px;
+    }
+.StatsPerfHorizRES1
+{font-size:12px;
+ font-weight:bold;
+padding-bottom:5px;
+ padding-top:5px;
+    }
+.StatsPerfHorizLbl2
+{font-size:12px;
+padding-bottom:6px;
+ padding-top:6px;
+    }
+.StatsPerfHorizRES2
+{font-size:12px;
+ font-weight:bold;
+padding-bottom:6px;
+ padding-top:6px;
+ text-align:right;
+    }
+.InceptionDate
+{
+    font-size:11px;
+    color:#666666;
+    font-weight:normal;}
+
+
+
+
+.TablePerf td{ border-bottom:1px solid #cacce7;}
+
+
+
+.PageSeperator
+{
+    border-bottom:1px solid #cacce7;
+    margin-bottom:10px;
+    padding-top:10px;
+    }
+
+.FundStatsCat
+{font-size:12px;
+ padding-top:12px;
+ padding-bottom:10px;
+ font-weight:bold;
+    }
+.FundTopTen td
+{border-bottom:1px solid #cacce7;
+    padding:5px;
+    }
+
+table.StdDataGrid
+{
+   font-size:11px;
+   border:none;
+   width:100%;
+}
+
+table.StdDataGrid th, table.StandardDataGrid th a
+{
+    font-family:HelveticaNeueLTCom-Roman;
+    
+}
+
+table.StdDataGrid th, table.StandardDataGrid td.Header
+{
+    font-weight:bold;
+    background:url("/resources/images/FundSearchBGHr1.jpg") repeat right top;
+    border:1px solid #cacce7; 
+    border-collapse:collapse;
+    height:25px;
+    text-align:left;
+}
+
+table.StdDataGrid th.right 
+{
+    text-align:right;
+}
+table.StdDataGrid th.center 
+{
+    text-align:center;
+}
+
+table.StdDataGrid th a
+{
+    color:#000000;
+	text-decoration:none;
+}
+
+table.StdDataGrid td
+{
+    background-color: #ffffff;
+	vertical-align:top;
+    border:1px solid #cacce7; 
+    border-collapse:collapse;
+	padding:2px;
+}
+
+table.StdDataGrid tr.alt td{
+	background-color:#eceef9;
+}
+
+table.StdDataGrid tr td.middle{
+	vertical-align:middle;
+}
+
+
+table.StdDataGrid tr td.noLeftRightBorder{
+	border-left:0;
+	border-right:0;
+}

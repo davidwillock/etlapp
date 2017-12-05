@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" id="WebApp_ID" version="2.4">
+  <display-name>Spring Web MVC Application</display-name>
+  <servlet>
+    <servlet-name>mvc-dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>mvc-dispatcher</servlet-name>
+    <url-pattern>/spring/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>mvc-dispatcher</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <description></description>
+    <display-name>cagr</display-name>
+    <servlet-name>cagr</servlet-name>
+    <servlet-class>com.charlie1.charts.cagr</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cagr</servlet-name>
+    <url-pattern>/cagr</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>chart_cagr</display-name>
+    <servlet-name>chart_cagr</servlet-name>
+    <servlet-class>com.charlie1.charts.chart_cagr</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>chart_cagr</servlet-name>
+    <url-pattern>/chart_cagr</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>chartAssetAlloc</display-name>
+    <servlet-name>chartAssetAlloc</servlet-name>
+    <servlet-class>com.charlie1.charts.chartAssetAlloc</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>chartAssetAlloc</servlet-name>
+    <url-pattern>/chartAssetAlloc</url-pattern>
+  </servlet-mapping>
+</web-app>

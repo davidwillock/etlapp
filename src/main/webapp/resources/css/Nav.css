@@ -1,0 +1,55 @@
+		
+
+/*clearing fix for floats*/
+.fix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.fix{display:inline-block;} 
+* html .fix{height:1%;}
+.fix{display:block;}
+
+
+/*the basic navigation*/
+.simplenav li li {padding-left: 0px;}									/*removes the indentation for nested lists set out in the reset css*/
+.simplenav {height: 3.58em; position: relative;} 					/*height gives a container to sit the sub-nav within*/
+.simplenav li {float: left; display: block;}										/*makes the list horizontal*/
+.simplenav li span {display: block;}								/*puts the 'subtext' on a new line*/
+
+/*additions for placing the nested lists as subnavs*/
+.on {position: absolute; bottom: 0; left: 0; width: 100%;}			/*places the sub nav below the main nav*/
+.off {top: -9999999px; position: absolute; opacity: 0;}				/*hide the inactive sub navs - leaves them 'visible' to screen readers*/
+
+/*prettifying*/
+.simplenav .skip {float: right;}
+.simplenav a {padding:6px 10px; display:block; color: #fff; font-weight: bold; font-size:15px; text-decoration: none;}
+span {font-size: 0.7em; }
+.simplenav>ul {}
+.simplenav>ul>li {border-right: 1px solid #71c0e5; }
+.skip {border-left: 1px solid #5f5f5f; border-right-width: 0;}
+.simplenav>ul>li>a:hover {background-image: url(/images/BlueBGNavHover.png)}
+
+	/*selected tab*/
+.here>a {background: url(../images/BlueBGNavHover.png) top left repeat-x;}
+.simplenav>ul>li.here>a:hover {background: url(/images/BlueBGNavHover.png) top left repeat-x;}
+	
+	
+	/*sub menu*/
+.on li a, .off li a {font-size:13px; color:#283e64; display: block; padding-left:5px; border-right:1px solid #ccc;}  /*make sure padding and font-size is the same on both on and off states as this is part of the measured width*/
+.on {background: url(/images/BlueBGNavHover.png) bottom left repeat-x;
+		-moz-border-radius-bottomright: 5px;
+		-webkit-border-bottom-right-radius: 5px;
+		-moz-border-radius-bottomleft: 5px;
+		-webkit-border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-bottom-left-radius: 5px;
+        
+	}
+.on li {display: block;}
+.here .on {background: url(/images/BlueBGNavHover.png) bottom left repeat-x;}
+.on a:hover {text-decoration: none; font-weight:bold; color:#1b99d6;
+             
+}
+li.SubMenuSelected a {text-decoration: none; font-weight:bold; color:#1b99d6;
+             
+}
+/*keep the top-level tab selected when moving to the sub nav */
+.simplenav li.MenuVisible>a {background-image: url(/images/BlueBGNavHover.png);}
+.simplenav li.MenuVisible>a span {background: transparent none; color: #fff;}
