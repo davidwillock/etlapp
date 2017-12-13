@@ -34,6 +34,7 @@ public interface FundsDAO
 	public void updateTable(List<journalLookup> Journals);
 	public void  batchTransaction(List<transactionData> transationData);
 	public String buildStrTransactionData();
+	public String buildStrCustomerData();
 	
 		    
 			

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Built-By: admin
+Built-By: CharlieOne
 Build-Jdk: 1.8.0_151
-Created-By: Maven Integration for Eclipse
+Created-By: Apache Maven 4.0.0
 Main-Class: com.charlie1.etlApp.App
-
+Archiver-Version: ... Archiver

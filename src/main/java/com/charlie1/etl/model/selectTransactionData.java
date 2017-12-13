@@ -19,7 +19,7 @@ public class selectTransactionData {
 		
 	
 		
-		getTrans();
+		//getTrans();
 	}
 	
 		
@@ -32,7 +32,7 @@ public class selectTransactionData {
 
 
 
-	private void getTrans() {
+	public void getTrans() {
 		
 		
 	

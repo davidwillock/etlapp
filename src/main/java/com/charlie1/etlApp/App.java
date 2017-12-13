@@ -21,12 +21,14 @@ import com.charlie1.etl.model.selectFundsByRisk;
 import com.charlie1.etl.model.selectJournal;
 import com.charlie1.etl.model.selectRisk;
 import com.charlie1.etl.model.selectFundsByFund;
+import com.charlie1.etl.model.selectTransactionData;
 //import java.util.Date;
 
 import com.charlie1.etlparser.parser;
 import com.charlie1.etlparsefolders.*;
 import com.charlie1.etlvalidatejournal.*;
 import com.charlie1.simulate.*;
+import com.charlie1.etl.model.selectCustomerData;
 
 
 /**
@@ -121,9 +123,9 @@ public class App
         //source.displayDirectoryContents(currentDirLOG);
         
       
-      //  Parse Structured Data
-        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-        source.displayDirectoryContents(currentDirCSV);
+      //***  Parse Structured Data
+      //  File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+      //  source.displayDirectoryContents(currentDirCSV);
         
      
         // Simulation Stuff**********************
@@ -142,6 +144,20 @@ public class App
        
        
        parser test = new parser();
+       
+       /*  Get Customer Data        */
+       
+       
+       
+       selectCustomerData selectcustomerdata = new selectCustomerData();
+      // selectcustomerdata.getCustomers();
+      // String customerstr = selectcustomerdata.getjsonStr();
+       selectTransactionData selectransactiondata = new selectTransactionData();
+       selectransactiondata.getTrans();
+         
+         
+         
+       
        
 //       test.parseCashUptime("", "", "");
        

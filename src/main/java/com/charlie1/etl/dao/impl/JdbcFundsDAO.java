@@ -40,6 +40,7 @@ import com.charlie1.etl.model.jIndexes;
 import com.charlie1.etl.model.journalData;
 import com.charlie1.etl.model.journalLookup;
 import com.charlie1.etl.model.transactionData;
+import com.charlie1.etl.model.customerData;
 
 
 
@@ -1217,14 +1218,14 @@ public	  String buildStrIDX() {
  	 		
 	 		 String jsonstr = "";
 	 		
-	 		 String journalstr =  "select * from transactions";
+	 		 String transtr =  "select * from transactions";
 
 	 
 	 		transactionData transdata = new transactionData();
 	 		 
 	 		
 	 		 
-	  List<String> data = getJdbcTemplate().query(journalstr, new RowMapper<String>(){
+	  List<String> data = getJdbcTemplate().query(transtr, new RowMapper<String>(){
 	 			 
 	 			 String jsonstr = "";
 	              public String mapRow(ResultSet rs, int rowNum) 
@@ -1287,6 +1288,86 @@ public	  String buildStrIDX() {
 	 		
 	 		
 	 	}  
+ 		
+ 		
+ 		public String buildStrCustomerData(){
+ 	 		
+ 	 		
+ 	 		
+	 		 String jsonstr = "";
+	 		
+	 		 String customerstr =  "select * from customer";
+
+	 
+	 		customerData customerdata = new customerData();
+	 		 
+	 		
+	 		 
+	  List<String> data = getJdbcTemplate().query(customerstr, new RowMapper<String>(){
+	 			 
+	 			 String jsonstr = "";
+	              public String mapRow(ResultSet rs, int rowNum) 
+	                                           throws SQLException {
+	             	 
+	             	   
+	            	  customerdata.setCustId(rs.getInt("CustId"));
+	            	  customerdata.setInstallDate(rs.getString("InstallDate")); 
+	            	  customerdata.setRetailName(rs.getString("RetailName"));
+	            	  customerdata.setRetailAddress(rs.getString("RetailAddress"));
+	            	  customerdata.setCounty(rs.getString("County"));
+	            	  customerdata.setCountry(rs.getString("Country"));
+	             	
+	             	// journaldata.setJournalStatus(rs.getString("InceptionDate_")); 
+	            	  
+	            	                                     
+	                  
+	                      
+	          			ObjectMapper ob = new ObjectMapper();
+	          			String jkson="";
+	          			
+	          			try {
+	          				
+	          				jkson = ob.writeValueAsString(customerdata);
+	          				
+	          				
+	          				
+	          			}catch(JsonProcessingException ex) {
+	          				
+	          				ex.printStackTrace();
+	          				
+	          				
+	          			}
+	          			
+	          			
+	          			  jsonstr += jkson;
+	          			
+	                   
+	                      jsonstr += ",";
+	                      
+	                      
+	                      return jsonstr;
+	                      
+	                      
+	                      
+	              }
+	              
+	         });
+	 			
+	 			
+	 		Iterator itemIterator = data.iterator();
+	 				
+	 		while(itemIterator.hasNext()){
+	 			
+	 			jsonstr+= (String)itemIterator.next();
+	 			
+	 		}
+	 		 
+	 		 
+	 		return jsonstr;
+	 		
+	 		
+	 	}  		
+ 
  		
  		
  		
