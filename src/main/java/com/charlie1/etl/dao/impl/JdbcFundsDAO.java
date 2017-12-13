@@ -1211,6 +1211,92 @@ public	  String buildStrIDX() {
  		
  		
  		
+ 		public String buildStrTransactionData(){
+ 	 		
+ 	 		
+ 	 		
+	 		 String jsonstr = "";
+	 		
+	 		 String journalstr =  "select * from transactions";
+
+	 
+	 		transactionData transdata = new transactionData();
+	 		 
+	 		
+	 		 
+	  List<String> data = getJdbcTemplate().query(journalstr, new RowMapper<String>(){
+	 			 
+	 			 String jsonstr = "";
+	              public String mapRow(ResultSet rs, int rowNum) 
+	                                           throws SQLException {
+	             	 
+	             	   
+	             	 transdata.setJournalID(rs.getString("JournalID"));
+	             	 transdata.setTerminalID(rs.getString("TerminalID")); 
+	             	 transdata.setAtm_value(rs.getInt("Atm_Value"));
+	             	 transdata.setAtm_volume(rs.getInt("Atm_Volume"));
+	             	 transdata.setUptime(rs.getInt("Uptime"));
+	             	
+	             	// journaldata.setJournalStatus(rs.getString("InceptionDate_")); 
+	            	  
+	            	                                     
+	                  
+	                      
+	          			ObjectMapper ob = new ObjectMapper();
+	          			String jkson="";
+	          			
+	          			try {
+	          				
+	          				jkson = ob.writeValueAsString(transdata);
+	          				
+	          				
+	          				
+	          			}catch(JsonProcessingException ex) {
+	          				
+	          				ex.printStackTrace();
+	          				
+	          				
+	          			}
+	          			
+	          			
+	          			  jsonstr += jkson;
+	          			
+	                   
+	                      jsonstr += ",";
+	                      
+	                      
+	                      return jsonstr;
+	                      
+	                      
+	                      
+	              }
+	              
+	         });
+	 			
+	 			
+	 		Iterator itemIterator = data.iterator();
+	 				
+	 		while(itemIterator.hasNext()){
+	 			
+	 			jsonstr+= (String)itemIterator.next();
+	 			
+	 		}
+	 		 
+	 		 
+	 		return jsonstr;
+	 		
+	 		
+	 	}  
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
  		
  		
  		
