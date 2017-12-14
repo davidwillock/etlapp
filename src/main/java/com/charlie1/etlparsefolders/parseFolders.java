@@ -219,7 +219,7 @@ public class parseFolders  {
 					    	
 					    	if(!validatejournal.isGetStatus() && extType.equals("JRN")) {
 					    		
-					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
+					    		srcfiles. parseCashtoFactTbl(strJournalData,terminalID,journalID);
 					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
 					    		
 					    		//srcfiles.parseCashStructured(strJournalData,terminalID,journalID);

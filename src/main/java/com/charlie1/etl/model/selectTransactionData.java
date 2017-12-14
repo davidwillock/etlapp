@@ -19,7 +19,7 @@ public class selectTransactionData {
 		
 	
 		
-		//getTrans();
+		getTrans();
 	}
 	
 		
@@ -65,7 +65,7 @@ public class selectTransactionData {
        {
            
 
-       	transData = "{'TerminalID': '-','JournalID' : '-','Atm_Value': '-','Atm_Volume':'-','Uptime':'-'}";
+       	transData = "{'TerminalID': '-','JournalID' : '-','Atm_Value': '-','Atm_Volume':'-','Atm_Uptime':'-'}";
 
        }
        else

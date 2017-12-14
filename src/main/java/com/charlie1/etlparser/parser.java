@@ -20,6 +20,7 @@ import com.charlie1.etlwriteto.*;
 import com.charlie1.etlvalidatejournal.*;
 import com.charlie1.etl.model.journalLookup;
 import com.charlie1.etl.model.selectAtmInfo;
+import com.charlie1.etl.model.selectTransactionData;
 import com.charlie1.etl.model.sendJournalStatus;
 import com.charlie1.etl.model.sendTransactionData;
 import com.charlie1.etl.model.transactionData;
@@ -954,7 +955,7 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	
 }
 	
-	
+
 
 public static void parseCashStructuredToFactTransTbl(String journal_,String terminalID,String journalID) {
 	
@@ -1272,6 +1273,466 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	
 		
 	countBuffers++;
+	
+	
+}
+
+
+public static void parseCashtoFactTbl(String journal,String terminalID,String journalID) {
+	
+	
+	
+	writetoDisk writetodisk = new writetoDisk();
+	validateJournal evaljrn = new validateJournal();
+	
+	
+	writetodisk.setCsvPath("c:\\home\\charlie\\dataMart.csv");
+	
+
+	char p;
+	
+//	String is = "is";
+//	String paragraph = "transaction is a test.";
+	String bufferStr="";
+	String bufferDigits="";
+	String buffer="";
+	String buffToDisk="";
+	String journalrecordBuffer="";
+	int sumValues=0;
+	
+	String testCash = new String();
+	int sumval=0;
+
+
+	char lblCash[]= {'C','A','S','H',' ',' ',' ','\0'};
+	String strCash = "CASH   ";
+	int transCnt=0;
+	
+
+	String jrn = journal;
+	int jrnLength = jrn.length();
+	
+	
+	
+	
+
+	
+	
+//	int paraLength = paragraph.length();
+	
+    int i=0;
+	while(i < jrnLength) {
+		
+		int j=0;
+		while(jrn.charAt(i) != lblCash[j] && i < jrnLength-1) {
+			i++;
+		
+			
+			
+			
+		}
+		
+		if(jrn.charAt(i) ==  lblCash[j]){
+			
+			if(j < lblCash.length)
+			while(jrn.charAt(i) ==  lblCash[j] && j < lblCash.length) {
+				
+				bufferStr+= jrn.charAt(i);
+				
+				
+				i++;
+				j++;
+			}
+			
+			if(bufferStr.equals(strCash))
+			{
+				
+				
+						
+			
+				i++;
+				if(jrn.charAt(i) != 'D' && Character.isDigit(jrn.charAt(i))) {
+					
+					while(Character.isDigit(jrn.charAt(i))) {
+						bufferDigits+= jrn.charAt(i);
+						bufferStr+= jrn.charAt(i);
+						i++;
+					}
+					
+					
+					transCnt++;
+					buffer += bufferStr;
+					buffer += " ";
+					buffer += "\r\n";
+					System.out.println(bufferStr + " " + "Transaction Count" + " "+ transCnt+" Value "+sumval);
+					String csvFormat = "Transact ";
+					
+					
+					sumval = Integer.parseInt(bufferDigits);
+					
+					sumValues+=sumval;
+					
+					bufferDigits="";
+					
+					
+					
+				}else {
+					
+					
+					
+					bufferStr = "";
+								
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+			}else {
+				
+				bufferStr="";
+				
+			}
+			
+			
+			
+		}
+		
+		
+		i++;
+	}
+	
+	//long uptime =  parseCashUptime(journal,"","");
+	 Random generator = new Random();
+	 int rpercent =0;
+	 if (transCnt < 10) {
+		 
+		rpercent = generator.nextInt(10)+1;
+		 
+	 }else if(transCnt < 20) {
+		 
+		 rpercent = generator.nextInt(20)+15;
+		 
+	 }else if(transCnt < 30) {
+		 
+		 rpercent = generator.nextInt(30)+25;
+		 
+	 }else if(transCnt < 40) {
+		 
+		 rpercent = generator.nextInt(40)+35;
+		 
+	 }else if(transCnt < 50 ) {
+		 
+		 rpercent = generator.nextInt(50)+45;
+		 
+	 }else if(transCnt < 60 ) {
+		 
+		 rpercent = generator.nextInt(60)+55;
+		 
+	 }else if(transCnt < 70) {
+		 
+		 rpercent = generator.nextInt(70)+65;
+		 
+	 }else if(transCnt < 80) {
+		 
+		 rpercent = generator.nextInt(80)+75;
+		 
+		 
+	 }else if( transCnt < 90) {
+		 
+		 rpercent = generator.nextInt(90)+94;
+		 
+		 
+	 }else if(transCnt < 100) {
+		 
+		 rpercent = generator.nextInt(95)+97;
+		 
+		 
+	 }else if(transCnt < 500) {
+		 
+		 
+		 rpercent = generator.nextInt(100)+97;
+		 
+	 }
+	 
+	 
+	 
+	 
+	
+	
+	
+	
+	//buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+","+uptime+"\r\n";
+	buffToDisk = terminalID+","+journalID+","+sumValues+","+transCnt+","+rpercent+"\r\n";
+	writetodisk.setJournalData(buffToDisk);
+	writetodisk.writetoCSV();
+	// WE should check the status of the write to file but we cannot verify
+	sendJournalStatus sendjournalstatus= new sendJournalStatus();
+	journalLookup journallookup = new journalLookup();
+	journallookup.setTerminalID(terminalID);
+	journallookup.setJournalStatus(journalID);
+
+	
+	
+/*	sendTransactionData sendtran = new sendTransactionData();
+	transactionData transdata = new transactionData();
+	transdata.setTerminalID(terminalID);
+	transdata.setJournalID(journalID);
+	transdata.setAtm_value(sumValues);
+	transdata.setAtm_volume(transCnt);
+	transdata.setUptime(rpercent);
+	
+	
+	transArray.add(transdata);
+	journalStatusArray.add(journallookup);
+	
+	if(countBuffers > 5000) {
+	sendtran.setTransactionData(transArray);
+	sendtran.initialiseData();
+	sendjournalstatus.setJournaldata(journalStatusArray);
+	sendjournalstatus.initialiseData();
+	countBuffers = 0;
+	}
+	//writetodisk.sendCSVtoMart();
+*/	
+		
+	
+	
+	sendFactTransactionData sendFacttransdata = new sendFactTransactionData();
+	FactTransactionData transdata = new FactTransactionData();
+	
+	
+	
+
+	
+	String strAtmInfo = selectatminfo.getjsonStr();
+	String terminalid ="";
+	String custid="";
+	String storeid="";
+	String bankid ="";
+	
+	 try {
+	        
+	        JSONObject jsonObject = new JSONObject(strAtmInfo);
+	        
+	        
+	        JSONArray ja_dataFact = jsonObject.getJSONArray("AtmInfoData");
+
+	        int sz = ja_dataFact.length();
+	        
+	    
+
+
+	        for (int j = 0; j <ja_dataFact.length(); j++) {
+
+	            JSONObject rootObj = ja_dataFact.getJSONObject(j);
+
+	            terminalid = rootObj.getString("terminalID");
+	            custid = rootObj.getString("custid");
+	            storeid = rootObj.getString("storeID");
+	         //   bankid = rootObj.getString("BankID");
+	            
+	            
+	           
+	            if(terminalid.equals(terminalID)) {
+	            	
+
+	            	transdata.setTerminalID(terminalID);
+	            	transdata.setJournalID(journalID);
+	            	transdata.setAtm_value(sumValues);
+	            	transdata.setAtm_volume(transCnt);
+	            	transdata.setAtm_upTime(rpercent);
+	            	transdata.setCustID(custid);
+	            	transdata.setStoreID(storeid);
+	            	transdata.setBankID(bankid);
+	            	System.out.println("found unstructure devices");
+	            	
+	            }
+	            
+	            
+	                     
+	           
+	        }  
+	             
+	             
+	        } catch(Exception ex) {
+	        	
+	        	ex.printStackTrace();
+	        	
+	        }
+	 
+	 
+		journallookup.setTerminalID(terminalID);
+		journallookup.setJournalStatus(journalID);
+		
+	transFactArray.add(transdata);
+	journalStatusArray.add(journallookup);
+	
+	if(countBuffers > 5000) {
+	
+	
+	
+	sendFacttransdata.setFactTransactionData(transFactArray);
+	sendFacttransdata.initialiseData();
+	sendjournalstatus.setJournaldata(journalStatusArray);
+	sendjournalstatus.initialiseData();
+	countBuffers = 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	countBuffers++;
+}
+
+
+public void parseTransactionDatatoFactTbl() {
+	
+	
+		selectTransactionData  selectTrans = new selectTransactionData();
+
+		sendFactTransactionData sendFacttransdata = new sendFactTransactionData();
+		FactTransactionData transdata = new FactTransactionData();
+		
+		
+		
+		
+		String strTrans = selectTrans.getjsonStr();
+		String strAtmInfo = selectatminfo.getjsonStr();
+		String terminalid ="";
+		String custid="";
+		String storeid="";
+		String bankid ="";
+		String Terminalid="";
+		String Journalid="";
+		int Atm_Uptimes=0;
+		int Atm_Volume=0;
+		int Atm_Value=0;
+		
+		int counter=0;
+		
+		 try {
+		        
+		        JSONObject jsonObjectAtmInfo = new JSONObject(strAtmInfo);
+		        JSONObject jsonObjectTrans = new JSONObject(strTrans);
+		        
+		        JSONArray ja_dataAtmInfo = jsonObjectAtmInfo.getJSONArray("AtmInfoData");
+		        JSONArray ja_dataTrans = jsonObjectTrans.getJSONArray("TransactionData");
+		        
+		        int szAtmInfo = ja_dataAtmInfo.length();
+		        int szAtmTrans = ja_dataTrans.length();
+		        
+		        
+		        for (int i = 0; i <ja_dataTrans.length(); i++) {
+
+		            JSONObject rootObjTrans = ja_dataTrans.getJSONObject(i);
+
+		            
+		            
+		        
+		               	for (int j = 0; j <ja_dataAtmInfo.length(); j++) {
+
+		               		JSONObject rootObjAtmInfo = ja_dataAtmInfo.getJSONObject(j);
+
+		               		Terminalid = rootObjTrans.getString("terminalID");
+		               		terminalid = rootObjAtmInfo.getString("terminalID");
+		               		Journalid = rootObjTrans.getString("journalID");
+		               		Atm_Uptimes = rootObjTrans.getInt("uptime");
+		               		Atm_Value =  rootObjTrans.getInt("atm_value");
+		               		Atm_Volume =  rootObjTrans.getInt("atm_volume");
+		               		//   bankid = rootObj.getString("BankID");
+		                    custid = rootObjAtmInfo.getString("custid");
+		                    storeid = rootObjAtmInfo.getString("storeID");
+		                  //  bankid = rootObjAtmInfo.getString("");
+		            
+		           
+		            if(terminalid.equals(Terminalid)) {
+		            	
+		               	transdata.setTerminalID(terminalid);
+		            	transdata.setJournalID(Journalid);
+		            	transdata.setAtm_value(Atm_Value);
+		            	transdata.setAtm_volume(Atm_Volume);
+		            	transdata.setAtm_upTime(Atm_Uptimes);
+		            	transdata.setCustID(custid);
+		            	transdata.setStoreID(storeid);
+		            	transdata.setBankID(bankid);
+		            	System.out.println("found unstructure devices");
+		            	
+		            }
+		                  
+		               	}    
+		               	
+		               	
+		               	
+		            	transFactArray.add(transdata);
+//		        		journalStatusArray.add(journallookup);
+		        		
+		        		if(countBuffers > 5000) {
+		        		
+		        		
+		        		
+		        		sendFacttransdata.setFactTransactionData(transFactArray);
+		        		sendFacttransdata.initialiseData();
+//		        		sendjournalstatus.setJournaldata(journalStatusArray);
+//		        		sendjournalstatus.initialiseData();
+		        		countBuffers = 0;
+		        		}
+		        			
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	System.out.println(counter);
+		               	
+		               	countBuffers++;
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		               	
+		           
+		               	}  
+		             
+		             
+		        } catch(Exception ex) {
+		        	
+		        	ex.printStackTrace();
+		        	
+		        }
+			
+	
+		
+		
+		countBuffers++;
+	
+	
 	
 	
 }
