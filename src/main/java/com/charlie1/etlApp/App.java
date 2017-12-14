@@ -124,20 +124,20 @@ public class App
         
       
       //***  Parse Structured Data
-      //  File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-      //  source.displayDirectoryContents(currentDirCSV);
+        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+        source.displayDirectoryContents(currentDirCSV);
         
      
         // Simulation Stuff**********************
         
         
         // Create Simulator Transactions
-        //File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-        //source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
+       // File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+       // source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
       
         
        // Create Random Folders  
-       //**simulator sim = new simulator(); 
+       // simulator sim = new simulator(); 
        //sim.setCreatefolders(70);
        //sim.createRandomFolders();
        
@@ -149,12 +149,13 @@ public class App
        
        
        
-       selectCustomerData selectcustomerdata = new selectCustomerData();
+      //* selectCustomerData selectcustomerdata = new selectCustomerData();
       // selectcustomerdata.getCustomers();
       // String customerstr = selectcustomerdata.getjsonStr();
-       selectTransactionData selectransactiondata = new selectTransactionData();
-       selectransactiondata.getTrans();
-         
+      //* selectTransactionData selectransactiondata = new selectTransactionData();
+     //*  selectransactiondata.getTrans();
+     //*  String transstr = selectransactiondata.getjsonStr();
+          
          
          
        

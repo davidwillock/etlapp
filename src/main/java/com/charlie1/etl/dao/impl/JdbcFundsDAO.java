@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -41,6 +42,8 @@ import com.charlie1.etl.model.journalData;
 import com.charlie1.etl.model.journalLookup;
 import com.charlie1.etl.model.transactionData;
 import com.charlie1.etl.model.customerData;
+import com.charlie1.etl.model.atmInfoData;
+import com.charlie1.etl.model.FactTransactionData;
 
 
 
@@ -1218,7 +1221,7 @@ public	  String buildStrIDX() {
  	 		
 	 		 String jsonstr = "";
 	 		
-	 		 String transtr =  "select * from transactions";
+	 		 String transtr =  "select top 100 * from transactions";
 
 	 
 	 		transactionData transdata = new transactionData();
@@ -1296,7 +1299,7 @@ public	  String buildStrIDX() {
  	 		
 	 		 String jsonstr = "";
 	 		
-	 		 String customerstr =  "select * from customer";
+	 		 String customerstr =  "select top 10 * from customer";
 
 	 
 	 		customerData customerdata = new customerData();
@@ -1369,6 +1372,123 @@ public	  String buildStrIDX() {
 	 	}  		
  
  		
+ 		public String buildStrAtmInfo(){
+ 			
+ 			
+
+	 		 String jsonstr = "";
+	 		
+	 		 String atmstr =  "select * from AtmInformation order by TerminalID desc";
+
+	 
+	 		atmInfoData atminfodatadata = new atmInfoData();
+	 		 
+	 		
+	 		 
+	  List<String> data = getJdbcTemplate().query(atmstr, new RowMapper<String>(){
+	 			 
+	 			 String jsonstr = "";
+	              public String mapRow(ResultSet rs, int rowNum) 
+	                                           throws SQLException {
+	             	 
+	             	   
+	            	  atminfodatadata.setCustid(rs.getString("CustId"));
+	            	  atminfodatadata.setTerminalID(rs.getString("TerminalID")); 
+	            	  atminfodatadata.setStoreID(rs.getString("StoreID"));
+	            	  atminfodatadata.setModel(rs.getString("Model"));
+	            	
+	         
+	            	  
+	            	                                     
+	                  
+	                      
+	          			ObjectMapper ob = new ObjectMapper();
+	          			String jkson="";
+	          			
+	          			try {
+	          				
+	          				jkson = ob.writeValueAsString(atminfodatadata);
+	          				
+	          				
+	          				
+	          			}catch(JsonProcessingException ex) {
+	          				
+	          				ex.printStackTrace();
+	          				
+	          				
+	          			}
+	          			
+	          			
+	          			  jsonstr += jkson;
+	          			
+	                   
+	                      jsonstr += ",";
+	                      
+	                      
+	                      return jsonstr;
+	                      
+	                      
+	                      
+	              }
+	              
+	         });
+	 			
+	 			
+	 		Iterator itemIterator = data.iterator();
+	 				
+	 		while(itemIterator.hasNext()){
+	 			
+	 			jsonstr+= (String)itemIterator.next();
+	 			
+	 		}
+	 		 
+	 		 
+	 		return jsonstr;
+	 		
+ 			
+ 			
+ 			
+ 			
+ 		}
+ 		
+ 	
+ 			
+ 			
+ 			
+public void batchTransactionFact(final List<FactTransactionData> Trans){
+ 			
+ 			FactTransactionData facttransData = new FactTransactionData();
+
+ 			String sql = "INSERT INTO FactTransaction" +
+ 					"(TerminalID, DateKeyID,Atm_value,Atm_volume,Atm_Uptime,CustId,StoreId,BankId) VALUES (?, ?, ?,?,?,?,?,?)";
+ 			
+ 			
+ 		//	String sql = "Update JournalLookup  set JournalStatus = " +
+ 		//			"? where TerminalID = ?";
+ 					
+ 				getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+ 					
+ 					@Override
+ 					public void setValues(PreparedStatement ps, int i) throws SQLException {
+ 						FactTransactionData facttransData = Trans.get(i);
+ 						ps.setString(1, facttransData.getTerminalID());
+ 						ps.setString(2, facttransData.getJournalID());
+ 						ps.setInt(3, facttransData.getAtm_value());
+ 						ps.setInt(4, facttransData.getAtm_volume());
+ 						ps.setInt(5, facttransData.getAtm_upTime());
+ 						ps.setString(6, facttransData.getCustID());
+ 						ps.setString(7, facttransData.getStoreID());
+ 						ps.setString(8,facttransData.getBankID());
+ 					}
+ 					
+ 					@Override
+ 					public int getBatchSize() {
+ 						return Trans.size();
+ 					}
+ 				});
+
+ 			
+ 		}
  		
  		
  		

@@ -222,7 +222,8 @@ public class parseFolders  {
 					    		srcfiles.parseCash(strJournalData,terminalID,journalID);
 					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
 					    		
-					    		srcfiles.parseCashStructured(strJournalData,terminalID,journalID);
+					    		//srcfiles.parseCashStructured(strJournalData,terminalID,journalID);
+					    		srcfiles.parseCashStructuredToFactTransTbl(strJournalData,terminalID,journalID);
 					    	
 					    	}
 					    	
@@ -250,7 +251,10 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 		simulator sim = new simulator();
 		String orgJrnDate = journalDate;
 		
+		 Random generator = new Random();
 		
+		 int randomtrans = generator.nextInt(60)+20;
+		 System.out.println("Random trans"+ randomtrans);
 		 
 	    
 		

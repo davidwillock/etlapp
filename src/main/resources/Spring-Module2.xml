@@ -3,8 +3,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<import resource="database/Spring-Datasource.xml"/>
-	<import resource="etl/Spring-Funds.xml"/>
+	<import resource="database/Spring-Datasource2.xml"/>
+	<import resource="etl/Spring-Funds2.xml"/>
 	
 	
 </beans>

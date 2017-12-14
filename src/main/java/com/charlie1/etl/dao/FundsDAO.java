@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import com.charlie1.etl.model.journalLookup;
 import com.charlie1.etl.model.transactionData;
-
+import com.charlie1.etl.model.FactTransactionData;
 //import com.charlie1.funds.dao.impl.jPerformDataEnum;
 
 public interface FundsDAO 
@@ -35,6 +35,11 @@ public interface FundsDAO
 	public void  batchTransaction(List<transactionData> transationData);
 	public String buildStrTransactionData();
 	public String buildStrCustomerData();
+	public String buildStrAtmInfo();
+	public void  batchTransactionFact(List<FactTransactionData> transationData);
+	
+	
+	
 	
 		    
 			

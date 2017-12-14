@@ -397,14 +397,14 @@ public void createRandomFolders() {
 	
 			Random generator = new Random();
 			int folderName = 0;
-			String folderPrefix ="00";
+			String folderPrefix ="11";
 			
 			//.nextInt(9999999)+1000000;
 			
 			
 			
 			String defaultPath = "C:\\home\\charlie\\Journaljrn\\";
-			String customPrefix="00";
+			String customPrefix="99";
 			//String customPath="";
 			
 			
