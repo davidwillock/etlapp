@@ -57,26 +57,7 @@ public class parser {
 		System.out.println("rUtility");
 		
 		
-		
-		String journal=""
-		+"147 A/C 905723 61503568 CASH    20   09:11:47 Cash taken"
-		+"147 A/C 905723 61503568 CASH    200   09:11:47 Cash taken"
-		+"147 A/C 905723 61503568 CASH    4000   09:11:47 Cash taken"
-		+"09:11:15 Track 2 data: 6304905723792809157"
-		+"09:11:20 Transaction request AA"     
-		+"09:11:42 Cash response: 00010000"
-		+"09:11:42 Cash 2:1,1;"
-		+"09:11:46 Cash presented"
-		+"147 A/C 905723 61503568 CASH    20   09:11:47 Cash taken"
-		+"09:11:58 Track 2 data: 6304905723792809157"
-		+"09:12:03 Transaction request AA"      
-		+"09:12:22 Cash response: 00010000"
-		+"09:12:22 Cash 2:1,1;"
-		+"09:12:25 Cash presented"
-		+"148 A/C 905723 61503568 CASH    20   09:12:27 Cash taken";
-		
-		
-		
+	
 		
 		
 		

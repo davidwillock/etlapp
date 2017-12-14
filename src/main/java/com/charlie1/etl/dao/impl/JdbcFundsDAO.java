@@ -1378,8 +1378,8 @@ public	  String buildStrIDX() {
 
 	 		 String jsonstr = "";
 	 		
-	 		 String atmstr =  "select * from AtmInformation order by TerminalID desc";
-
+	 		 String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
+	 		 
 	 
 	 		atmInfoData atminfodatadata = new atmInfoData();
 	 		 

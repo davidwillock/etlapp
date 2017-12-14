@@ -116,20 +116,20 @@ public class App
         
         
      // Parse Unstructured Data   
-       //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+      //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         
-        /*File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
-        //parseFolders source = new parseFolders();
+        //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+        parseFolders source = new parseFolders();
         //source.displayDirectoryContents(currentDirLOG);
         
       
-      //  Parse Structured Data
-      //  File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-      //  source.displayDirectoryContents(currentDirCSV);
+        //Parse Structured Data
+        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+        source.displayDirectoryContents(currentDirCSV);
         
-        */
-       parser parse_ = new parser(); 
-       parse_.parseTransactionDatatoFactTbl();
+       // Parse Structured Data
+        parser parse_ = new parser(); 
+        parse_.parseTransactionDatatoFactTbl();
         
         
      
