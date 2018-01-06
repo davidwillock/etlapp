@@ -45,6 +45,9 @@ import com.charlie1.etl.model.customerData;
 import com.charlie1.etl.model.atmInfoData;
 import com.charlie1.etl.model.FactTransactionData;
 
+import com.charlie1.etl.model.bankingData;
+import com.charlie1.etl.model.storeInfoData;
+
 
 
 
@@ -1382,6 +1385,9 @@ public	  String buildStrIDX() {
 	 		 
 	 
 	 		atmInfoData atminfodatadata = new atmInfoData();
+	 		bankingData bankingdata = new bankingData();
+	 		storeInfoData storeinfodata = new storeInfoData();
+	 		
 	 		 
 	 		
 	 		 
@@ -1396,7 +1402,17 @@ public	  String buildStrIDX() {
 	            	  atminfodatadata.setTerminalID(rs.getString("TerminalID")); 
 	            	  atminfodatadata.setStoreID(rs.getString("StoreID"));
 	            	  atminfodatadata.setModel(rs.getString("Model"));
-	            	
+	            	  bankingdata.setBankID(rs.getInt("BankID"));
+	            	  bankingdata.setBankName(rs.getString("BankName"));
+	            	  bankingdata.setCostPerTransaction(rs.getInt("Rate"));
+	            	  storeinfodata.setStoreID(rs.getString("StoreID"));
+	            	  storeinfodata.setInstallDate(rs.getString("InstallDate"));
+	            	  storeinfodata.setTerminalID(rs.getString("TerminalID"));
+	            	  storeinfodata.setCustId(rs.getString("CustID"));
+	            	  storeinfodata.setRetailName(rs.getString("RetailName"));
+	            	  storeinfodata.setRetailAddress(rs.getString("RetailAddress"));
+	            	  storeinfodata.setCounty(rs.getString("County"));
+	            	  storeinfodata.setCountry(rs.getString("Country"));
 	         
 	            	  
 	            	                                     
@@ -1452,7 +1468,190 @@ public	  String buildStrIDX() {
  		}
  		
  	
+ 		public String buildStrStoreInfo(){
  			
+ 			
+
+	 		 String jsonstr = "";
+	 		
+	 		 String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
+	 		 
+	 
+	 	//	atmInfoData atminfodatadata = new atmInfoData();
+	 	//	bankingData bankingdata = new bankingData();
+	 		storeInfoData storeinfodata = new storeInfoData();
+	 		
+	 		 
+	 		
+	 		 
+	  List<String> data = getJdbcTemplate().query(atmstr, new RowMapper<String>(){
+	 			 
+	 			 String jsonstr = "";
+	              public String mapRow(ResultSet rs, int rowNum) 
+	                                           throws SQLException {
+	             	 
+	             	   
+	       //     	  atminfodatadata.setCustid(rs.getString("CustId"));
+	       //     	  atminfodatadata.setTerminalID(rs.getString("TerminalID")); 
+	       //     	  atminfodatadata.setStoreID(rs.getString("StoreID"));
+	       //     	  atminfodatadata.setModel(rs.getString("Model"));
+	       //      	  bankingdata.setBankID(rs.getInt("BankID"));
+	       //     	  bankingdata.setBankName(rs.getString("BankName"));
+	       //     	  bankingdata.setCostPerTransaction(rs.getInt("Rate"));
+	            	  storeinfodata.setStoreID(rs.getString("StoreID"));
+	            	  storeinfodata.setInstallDate(rs.getString("InstallDate"));
+	            	  storeinfodata.setTerminalID(rs.getString("TerminalID"));
+	            	  storeinfodata.setCustId(rs.getString("CustID"));
+	            	  storeinfodata.setRetailName(rs.getString("RetailName"));
+	            	  storeinfodata.setRetailAddress(rs.getString("RetailAddress"));
+	            	  storeinfodata.setCounty(rs.getString("County"));
+	            	  storeinfodata.setCountry(rs.getString("Country"));
+	         
+	            	  
+	            	                                     
+	                  
+	                      
+	          			ObjectMapper ob = new ObjectMapper();
+	          			String jkson="";
+	          			
+	          			try {
+	          				
+	          				jkson = ob.writeValueAsString(storeinfodata);
+	          				
+	          				
+	          				
+	          			}catch(JsonProcessingException ex) {
+	          				
+	          				ex.printStackTrace();
+	          				
+	          				
+	          			}
+	          			
+	          			
+	          			  jsonstr += jkson;
+	          			
+	                   
+	                      jsonstr += ",";
+	                      
+	                      
+	                      return jsonstr;
+	                      
+	                      
+	                      
+	              }
+	              
+	         });
+	 			
+	 			
+	 		Iterator itemIterator = data.iterator();
+	 				
+	 		while(itemIterator.hasNext()){
+	 			
+	 			jsonstr+= (String)itemIterator.next();
+	 			
+	 		}
+	 		 
+	 		 
+	 		return jsonstr;
+	 		
+			
+			
+			
+			
+		}
+ 		
+ 		public String buildStrBankingData(){
+ 			
+ 			
+
+	 		 String jsonstr = "";
+	 		
+	 		 String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
+	 		 
+	 
+	 	//	atmInfoData atminfodatadata = new atmInfoData();
+	 		bankingData bankingdata = new bankingData();
+	 	//	storeInfoData storeinfodata = new storeInfoData();
+	 		
+	 		 
+	 		
+	 		 
+	  List<String> data = getJdbcTemplate().query(atmstr, new RowMapper<String>(){
+	 			 
+	 			 String jsonstr = "";
+	              public String mapRow(ResultSet rs, int rowNum) 
+	                                           throws SQLException {
+	             	 
+	             	   
+	       //     	  atminfodatadata.setCustid(rs.getString("CustId"));
+	       //     	  atminfodatadata.setTerminalID(rs.getString("TerminalID")); 
+	       //     	  atminfodatadata.setStoreID(rs.getString("StoreID"));
+	       //     	  atminfodatadata.setModel(rs.getString("Model"));
+	             	  bankingdata.setBankID(rs.getInt("BankID"));
+	            	  bankingdata.setBankName(rs.getString("BankName"));
+	            	  bankingdata.setCostPerTransaction(rs.getInt("Rate"));
+	       //     	  storeinfodata.setStoreID(rs.getString("StoreID"));
+	       //     	  storeinfodata.setInstallDate(rs.getString("InstallDate"));
+	       //     	  storeinfodata.setTerminalID(rs.getString("TerminalID"));
+	       //     	  storeinfodata.setCustId(rs.getString("CustID"));
+	       //     	  storeinfodata.setRetailName(rs.getString("RetailName"));
+	       //     	  storeinfodata.setRetailAddress(rs.getString("RetailAddress"));
+	       //     	  storeinfodata.setCounty(rs.getString("County"));
+	       //     	  storeinfodata.setCountry(rs.getString("Country"));
+	         
+	            	  
+	            	                                     
+	                  
+	                      
+	          			ObjectMapper ob = new ObjectMapper();
+	          			String jkson="";
+	          			
+	          			try {
+	          				
+	          				jkson = ob.writeValueAsString(bankingdata);
+	          				
+	          				
+	          				
+	          			}catch(JsonProcessingException ex) {
+	          				
+	          				ex.printStackTrace();
+	          				
+	          				
+	          			}
+	          			
+	          			
+	          			  jsonstr += jkson;
+	          			
+	                   
+	                      jsonstr += ",";
+	                      
+	                      
+	                      return jsonstr;
+	                      
+	                      
+	                      
+	              }
+	              
+	         });
+	 			
+	 			
+	 		Iterator itemIterator = data.iterator();
+	 				
+	 		while(itemIterator.hasNext()){
+	 			
+	 			jsonstr+= (String)itemIterator.next();
+	 			
+	 		}
+	 		 
+	 		 
+	 		return jsonstr;
+	 		
+			
+			
+			
+			
+		}
+					
  			
  			
 public void batchTransactionFact(final List<FactTransactionData> Trans){
@@ -1490,7 +1689,41 @@ public void batchTransactionFact(final List<FactTransactionData> Trans){
  			
  		}
  		
- 		
+public void batchDimStoreInfo(final List<storeInfoData> Stores){
+		
+		storeInfoData storeinfdata = new storeInfoData();
+
+		String sql = "INSERT INTO dimStores " +
+				"(StoreID, CustID,InstallDate,StoreName,City,County,Province,Country) VALUES (?,?,?,?,?,?,?,?)";
+		
+		
+			getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+				
+				@Override
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					storeInfoData storesdata = Stores.get(i);
+					ps.setString(1, storesdata.getStoreID());
+					ps.setString(2, storesdata.getCustId());
+					ps.setString(3, storesdata.getInstallDate());
+					ps.setString(4, storesdata.getRetailName());
+					ps.setString(5, storesdata.getRegion());
+					ps.setString(6, storesdata.getCounty());
+					ps.setString(7, storesdata.getRegion());
+					ps.setString(8, storesdata.getCountry());
+					
+							
+				}
+				
+				@Override
+				public int getBatchSize() {
+					return Stores.size();
+				}
+			});
+
+		
+	}
+	
+		
  		
  		
  		

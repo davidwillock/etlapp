@@ -27,6 +27,11 @@ import com.charlie1.etl.model.transactionData;
 import com.charlie1.etl.model.atmInfoData;
 import com.charlie1.etl.model.sendFactTransactionData;
 import com.charlie1.etl.model.FactTransactionData;
+import com.charlie1.etl.model.storeInfoData;
+import com.charlie1.etl.model.bankingData;
+import com.charlie1.etl.model.selectStoreInfo;
+import com.charlie1.etl.model.selectBankingData;
+import com.charlie1.etl.model.sendDimStoreInfo;
 
 public class parser {
 
@@ -39,8 +44,11 @@ public class parser {
 	static ArrayList<journalLookup> journalStatusArray = new ArrayList<journalLookup>();
 	static ArrayList<transactionData> transArray = new ArrayList<transactionData>();
 	static ArrayList<FactTransactionData> transFactArray = new ArrayList<FactTransactionData>();
+	static ArrayList<storeInfoData> storeDimensionArray = new ArrayList<storeInfoData>();
+	
 	
 	final static selectAtmInfo selectatminfo = new selectAtmInfo();
+	final static selectStoreInfo selectstoreinfo = new selectStoreInfo();
 	
 	public parser(){ }
 	
@@ -1716,6 +1724,96 @@ public void parseTransactionDatatoFactTbl() {
 	
 	
 	
+}
+
+public void parseDatatoDimensionalTbl() {
+	
+	
+	
+
+	String strStoreInfo = selectstoreinfo.getjsonStr();
+	String terminalid ="";
+	String storeId ="";
+	String installId="";
+	String custId="";
+	String storeid="";
+	String retailId ="";
+	String retailName="";
+	String retailAddress="";
+	String county="";
+	String country="";
+	
+		
+	 try {
+	        
+	        JSONObject jsonObjectStoreInfo = new JSONObject(strStoreInfo);
+	        JSONArray ja_dataStoreInfo = jsonObjectStoreInfo.getJSONArray("AtmInfoData");
+	        int szStoreInfo = ja_dataStoreInfo.length();
+	        storeInfoData storeinfo = new storeInfoData();
+	        sendDimStoreInfo senddimstoreinfo = new sendDimStoreInfo();
+	        
+	        
+	       
+	        
+	               	for (int j = 0; j <ja_dataStoreInfo.length(); j++) {
+
+	               		JSONObject rootObjStoreInfo = ja_dataStoreInfo.getJSONObject(j);
+
+	               		storeId = rootObjStoreInfo.getString("StoreID");
+	               		terminalid = rootObjStoreInfo.getString("terminalID");
+	               		installId = rootObjStoreInfo.getString("installId");
+	               		custId = rootObjStoreInfo.getString("custId");
+	               		storeId =  rootObjStoreInfo.getString("storeId");
+	               		retailId =  rootObjStoreInfo.getString("retailId");
+	               	    retailName = rootObjStoreInfo.getString("retailName");
+	                    retailAddress = rootObjStoreInfo.getString("retailAddress");
+	                    county = rootObjStoreInfo.getString("county");
+	                    country = rootObjStoreInfo.getString("country");
+	            
+	           
+	          
+	                    storeinfo.setTerminalID(terminalid);
+	                    storeinfo.setInstallDate(installId);
+	                    storeinfo.setCustId(custId);
+	                    storeinfo.setStoreID(retailId);
+	                    storeinfo.setRetailName(retailName);
+	                    storeinfo.setRetailAddress(retailAddress);
+	                    storeinfo.setCounty(county);
+	                    storeinfo.setCountry(country);
+	            	
+	           
+	               	
+	                    storeDimensionArray.add(storeinfo);
+
+	        		       		
+	                    senddimstoreinfo.setDimStoreInfo(storeDimensionArray);
+	                    senddimstoreinfo.initialiseData();
+
+	        		
+	        		}
+	        			
+	            	
+	          
+	               	
+	             
+	               	
+	                     	
+	             
+	             
+	        } catch(Exception ex) {
+	        	
+	        	ex.printStackTrace();
+	        	
+	        }
+		
+
+	
+	
+	countBuffers++;
+
+
+
+
 }
 
 
