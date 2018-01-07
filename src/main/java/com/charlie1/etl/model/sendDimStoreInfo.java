@@ -30,7 +30,7 @@ public class sendDimStoreInfo {
 		
 		
 		
-	   ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+	   ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module2.xml");
 		
 		
 		
@@ -39,7 +39,7 @@ public class sendDimStoreInfo {
 		
 		
 		 
-		 FundsDAO dimStoreDAO = (FundsDAO) context.getBean("FundsDAO");
+		 FundsDAO dimStoreDAO = (FundsDAO) context.getBean("EtlDAO");
 	     dimStoreDAO.batchDimStoreInfo(storeinfodataArray);
 		
 		

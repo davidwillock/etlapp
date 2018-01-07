@@ -18,8 +18,19 @@ public class storeInfoData {
 	String county;
 	String region;
 	String country;
+	String city;
 	
 	
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
 	public storeInfoData() {}
 	
 	
@@ -32,7 +43,7 @@ public class storeInfoData {
 	public String getInstallDate() {
 		return installDate;
 	}
-	public void setInstallDate(String installId) {
+	public void setInstallDate(String installDate) {
 		this.installDate = installDate;
 	}
 	public String getTerminalID() {
@@ -76,6 +87,14 @@ public class storeInfoData {
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+
+	@Override
+	public String toString() {
+		return "storeInfoData [storeID=" + storeID + ", installDate=" + installDate + ", terminalID=" + terminalID
+				+ ", custId=" + custId + ", retailName=" + retailName + ", retailAddress=" + retailAddress + ", county="
+				+ county + ", region=" + region + ", country=" + country + ", city=" + city + "]";
 	}
 
 

@@ -50,7 +50,7 @@ public class selectBankingData {
 		
 		
 
-	        String bankingData =  BankingDataDAO.buildStrStoreInfo();
+	        String bankingData =  BankingDataDAO.buildStrBankingData();
 	        if (bankingData.equals(""))
 	        {
 	            

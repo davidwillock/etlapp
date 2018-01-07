@@ -1381,8 +1381,8 @@ public	  String buildStrIDX() {
 
 	 		 String jsonstr = "";
 	 		
-	 		 String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
-	 		 
+	 		// String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
+	 		 String atmstr = "select distinct terminalid, * from atminformation a left join retailstores r on r.storeid = a.storeid left join Banking b on b.BankID = a.BankID order by a.TerminalID"; 
 	 
 	 		atmInfoData atminfodatadata = new atmInfoData();
 	 		bankingData bankingdata = new bankingData();
@@ -1467,6 +1467,142 @@ public	  String buildStrIDX() {
  			
  		}
  		
+ 		
+ 		/*
+ 		public String buildStrStoreInfo(){
+ 			
+ 			
+ 			
+ 			 String jsonstr = "";
+ 			
+ 	// holdingstr = "select h.FundSymID,h.symid,h.name,aa.asset,sa.sector,ga.geograph,h.percentage from holdings H left join AssetAllocation AA on H.assetid = AA.assetid left join SectorAllocation SA on H.sectorid = SA.sectorid left join GeographAllocation GA on H.geographid = GA.geographid left join PerformanceData P on H.FundSymID = P.SymID where P.volatilerank_ >= '" + risk1 + "' and P.volatilerank_ <= '" + risk2 + "'";
+ 		
+ 			 
+ 			 
+ 			 
+ 			 String atmstr = "select * from retailstores";
+ 		 	//	atmInfoData atminfodatadata = new atmInfoData();
+ 		 	//	bankingData bankingdata = new bankingData();
+ 		 	
+ 			 
+ 			 
+ 			 
+ 			 
+ 			 
+ 			 
+ 			 
+ 			 
+ 			 
+ 			 
+ 		
+ 			 List <Map <String,Object>> rows = getJdbcTemplate().queryForList(atmstr);
+ 			for (Map<String,Object> row : rows) {
+ 				storeInfoData storeinfodata = new storeInfoData();
+ 				
+ 		
+ 			
+ 				  storeinfodata.setStoreID((String)row.get("StoreID"));
+ 				
+ 				
+ 				
+ 				jsonstr += storeinfodata.toString();
+ 	            jsonstr += ",";
+
+ 				
+ 				
+ 			}
+ 			
+ 			return jsonstr;
+ 			
+ 			
+ 		}
+ 		
+ 		*/
+ 		
+ 		/*
+ 		public String buildStrStoreInfo(){
+ 			
+ 			 
+ 			 
+ 			
+ 			 
+ 			storeInfoData storeinfodata = new storeInfoData();
+ 			 
+ 			 String jsonstr = "";
+ 				
+ 			 String atmstr = "select storeid from retailstores";
+ 			 
+ 			 List<String> data = getJdbcTemplate().query(atmstr, new RowMapper<String>(){
+ 				 
+ 				 String jsonstr = "";
+ 	             public String mapRow(ResultSet rs, int rowNum) 
+ 	                                          throws SQLException {
+ 	            	 
+ 	            	   
+ 	          	  storeinfodata.setStoreID(rs.getString("StoreID"));
+ 	                     
+ 	                     
+ 	                     
+ 	                     jsonstr += storeinfodata.toString();
+ 	                     jsonstr += ",";
+ 	                     
+ 	                     
+ 	                     return jsonstr;
+ 	                     
+ 	                     
+ 	                     
+ 	             }
+ 	             
+ 	        });
+ 				
+ 				
+ 			Iterator itemIterator = data.iterator();
+ 					
+ 			while(itemIterator.hasNext()){
+ 				
+ 				jsonstr+= (String)itemIterator.next();
+ 				
+ 			}
+ 			
+ 			
+ 				
+ 			return jsonstr;
+ 			
+ 			
+ 		}
+ 		
+ 		
+ 		
+ 		*/
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		
  	
  		public String buildStrStoreInfo(){
  			
@@ -1474,9 +1610,9 @@ public	  String buildStrIDX() {
 
 	 		 String jsonstr = "";
 	 		
-	 		 String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
-	 		 
-	 
+	 		// String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
+	 		// String atmstr = "select distinct terminalid, * from atminformation a left join retailstores r on r.storeid = a.storeid left join Banking b on b.BankID = a.BankID order by a.TerminalID";
+	 		 String atmstr = "select * from retailstores";
 	 	//	atmInfoData atminfodatadata = new atmInfoData();
 	 	//	bankingData bankingdata = new bankingData();
 	 		storeInfoData storeinfodata = new storeInfoData();
@@ -1499,14 +1635,14 @@ public	  String buildStrIDX() {
 	       //     	  bankingdata.setBankName(rs.getString("BankName"));
 	       //     	  bankingdata.setCostPerTransaction(rs.getInt("Rate"));
 	            	  storeinfodata.setStoreID(rs.getString("StoreID"));
-	            	  storeinfodata.setInstallDate(rs.getString("InstallDate"));
-	            	  storeinfodata.setTerminalID(rs.getString("TerminalID"));
-	            	  storeinfodata.setCustId(rs.getString("CustID"));
-	            	  storeinfodata.setRetailName(rs.getString("RetailName"));
-	            	  storeinfodata.setRetailAddress(rs.getString("RetailAddress"));
-	            	  storeinfodata.setCounty(rs.getString("County"));
-	            	  storeinfodata.setCountry(rs.getString("Country"));
-	         
+	            //	  storeinfodata.setInstallDate(rs.getString("InstallDate"));
+	            //	  storeinfodata.setTerminalID(rs.getString("TerminalID"));
+	            //	  storeinfodata.setCustId(rs.getString("CustID"));
+	           // 	  storeinfodata.setRetailName(rs.getString("RetailName"));
+	           // 	  storeinfodata.setRetailAddress(rs.getString("RetailAddress"));
+	           // 	  storeinfodata.setCounty(rs.getString("County"));
+	           // 	  storeinfodata.setCountry(rs.getString("Country"));
+	           // 	  storeinfodata.setCity(rs.getString("City"));
 	            	  
 	            	                                     
 	                  
@@ -1566,7 +1702,7 @@ public	  String buildStrIDX() {
 
 	 		 String jsonstr = "";
 	 		
-	 		 String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
+	 		 String atmstr =  "select distinct terminalid, * from atminformation a left join retailstores r on r.storeid = a.storeid left join Banking b on b.BankID = a.BankID order by a.TerminalID";
 	 		 
 	 
 	 	//	atmInfoData atminfodatadata = new atmInfoData();
@@ -1706,7 +1842,7 @@ public void batchDimStoreInfo(final List<storeInfoData> Stores){
 					ps.setString(2, storesdata.getCustId());
 					ps.setString(3, storesdata.getInstallDate());
 					ps.setString(4, storesdata.getRetailName());
-					ps.setString(5, storesdata.getRegion());
+					ps.setString(5, storesdata.getCity());
 					ps.setString(6, storesdata.getCounty());
 					ps.setString(7, storesdata.getRegion());
 					ps.setString(8, storesdata.getCountry());
@@ -1722,6 +1858,38 @@ public void batchDimStoreInfo(final List<storeInfoData> Stores){
 
 		
 	}
+
+
+
+public void batchDimBankData(final List<bankingData> Banks){
+	
+	bankingData bankdata = new bankingData();
+
+	String sql = "INSERT INTO dimBank " +
+			"(BankID, BankName,CostPerTransId) VALUES (?,?,?)";
+	
+	
+		getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				bankingData bankingdata = Banks.get(i);
+				ps.setInt(1, bankdata.getBankID());
+				ps.setString(2, bankdata.getBankName());
+				ps.setInt(3, bankdata.getCostPerTransaction());
+				
+				
+						
+			}
+			
+			@Override
+			public int getBatchSize() {
+				return Banks.size();
+			}
+		});
+
+	
+}
 	
 		
  		

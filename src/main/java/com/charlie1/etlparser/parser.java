@@ -32,6 +32,8 @@ import com.charlie1.etl.model.bankingData;
 import com.charlie1.etl.model.selectStoreInfo;
 import com.charlie1.etl.model.selectBankingData;
 import com.charlie1.etl.model.sendDimStoreInfo;
+import com.charlie1.etl.model.selectBankingData;
+import com.charlie1.etl.model.sendDimBankingData;
 
 public class parser {
 
@@ -45,10 +47,12 @@ public class parser {
 	static ArrayList<transactionData> transArray = new ArrayList<transactionData>();
 	static ArrayList<FactTransactionData> transFactArray = new ArrayList<FactTransactionData>();
 	static ArrayList<storeInfoData> storeDimensionArray = new ArrayList<storeInfoData>();
-	
+	static ArrayList<bankingData> bankingDimensionArray = new ArrayList<bankingData>();
 	
 	final static selectAtmInfo selectatminfo = new selectAtmInfo();
 	final static selectStoreInfo selectstoreinfo = new selectStoreInfo();
+	final static selectBankingData selectbanking = new selectBankingData();
+	
 	
 	public parser(){ }
 	
@@ -1734,7 +1738,7 @@ public void parseDatatoDimensionalTbl() {
 	String strStoreInfo = selectstoreinfo.getjsonStr();
 	String terminalid ="";
 	String storeId ="";
-	String installId="";
+	String installDate="";
 	String custId="";
 	String storeid="";
 	String retailId ="";
@@ -1742,58 +1746,114 @@ public void parseDatatoDimensionalTbl() {
 	String retailAddress="";
 	String county="";
 	String country="";
+	int bankId=0;
+	String bankName="";
+	int costPerTransId=0;
+	String city="";
 	
 		
 	 try {
 	        
 	        JSONObject jsonObjectStoreInfo = new JSONObject(strStoreInfo);
-	        JSONArray ja_dataStoreInfo = jsonObjectStoreInfo.getJSONArray("AtmInfoData");
+	        JSONArray ja_dataStoreInfo = jsonObjectStoreInfo.getJSONArray("StoreInfoData");
 	        int szStoreInfo = ja_dataStoreInfo.length();
 	        storeInfoData storeinfo = new storeInfoData();
 	        sendDimStoreInfo senddimstoreinfo = new sendDimStoreInfo();
 	        
-	        
+	 //       {"StoreInfoData":[{"country":"Ireland","retailName":"Kub-Fahey","installDate":null,"retailAddress":"749 Scoville Way","custId":"0","county":"Mayo","terminalID":"01356866","storeID":"0","region":null},{"country":"Ireland","retailName":"Kub-Fahey","installDate":null,"retailAddress":"749 Scoville Way","custId":"0","county":"Mayo","terminalID":"01356866","storeID":"0","region":null},{"country":"Ireland","retailName":"Kirlin-Marks","installDate":null,"retailAddress":"5524 Sherman Court","custId":"1","county":"Mayo",
 	       
 	        
 	               	for (int j = 0; j <ja_dataStoreInfo.length(); j++) {
 
 	               		JSONObject rootObjStoreInfo = ja_dataStoreInfo.getJSONObject(j);
 
-	               		storeId = rootObjStoreInfo.getString("StoreID");
+	               		storeId = rootObjStoreInfo.getString("storeID");
 	               		terminalid = rootObjStoreInfo.getString("terminalID");
-	               		installId = rootObjStoreInfo.getString("installId");
+	               		installDate = rootObjStoreInfo.getString("installDate");
 	               		custId = rootObjStoreInfo.getString("custId");
-	               		storeId =  rootObjStoreInfo.getString("storeId");
-	               		retailId =  rootObjStoreInfo.getString("retailId");
+	               		storeId =  rootObjStoreInfo.getString("storeID");
+	               	//	retailId =  rootObjStoreInfo.getString("retailId");
 	               	    retailName = rootObjStoreInfo.getString("retailName");
 	                    retailAddress = rootObjStoreInfo.getString("retailAddress");
 	                    county = rootObjStoreInfo.getString("county");
 	                    country = rootObjStoreInfo.getString("country");
+	                    city = rootObjStoreInfo.getString("city");
 	            
 	           
 	          
 	                    storeinfo.setTerminalID(terminalid);
-	                    storeinfo.setInstallDate(installId);
+	                    storeinfo.setInstallDate(installDate);
 	                    storeinfo.setCustId(custId);
 	                    storeinfo.setStoreID(retailId);
 	                    storeinfo.setRetailName(retailName);
 	                    storeinfo.setRetailAddress(retailAddress);
 	                    storeinfo.setCounty(county);
 	                    storeinfo.setCountry(country);
+	                    storeinfo.setCity(city);
 	            	
 	           
 	               	
 	                    storeDimensionArray.add(storeinfo);
+	                }
+	               	
+	                senddimstoreinfo.setDimStoreInfo(storeDimensionArray);
+                    senddimstoreinfo.initialiseData();
 
-	        		       		
-	                    senddimstoreinfo.setDimStoreInfo(storeDimensionArray);
-	                    senddimstoreinfo.initialiseData();
+	               	
+	               	
+	               	
+	               	
+	               	
+	        			
+	            	String strbankingData = selectbanking.getjsonStr();
+	                JSONObject jsonObjectBankingData = new JSONObject(strbankingData);
+	    	        JSONArray ja_dataBankingData = jsonObjectBankingData.getJSONArray("BankingData");
+	    	        int szBankingData = ja_dataBankingData.length();
+	    	        bankingData bankingdata = new bankingData();
+	    	        sendDimBankingData senddimbankingdata = new sendDimBankingData();
+	    	            
+	               	
+	               	
+	    	      ///  {"BankingData": [{"bankID":1,"bankName":"Bank of Ireland","costPerTransaction":1},{"bankID":1,"bankName":"Bank of Ireland","costPerTransaction":1},
+	    	        
+	               	for (int j = 0; j <ja_dataBankingData.length(); j++) {
+
+	               		JSONObject rootObjbanking = ja_dataBankingData.getJSONObject(j);
+
+	               		bankId = rootObjbanking.getInt("bankID");
+	               		bankName = rootObjbanking.getString("bankID");
+	               		costPerTransId = rootObjbanking.getInt("costPerTransaction");
+	               		
+	           
+	          
+	               		bankingdata.setBankID(bankId);
+	               		bankingdata.setBankName(bankName);
+	               		bankingdata.setCostPerTransaction(costPerTransId);
+	                   
+	            	
+	           
+	               	
+	               		bankingDimensionArray.add(bankingdata);
+
+	        		    
 
 	        		
 	        		}
-	        			
-	            	
-	          
+	        	
+	               	
+	           		
+               		senddimbankingdata.setDimBankingData(bankingDimensionArray);
+               		senddimbankingdata.initialiseData();
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
 	               	
 	             
 	               	
@@ -1806,14 +1866,6 @@ public void parseDatatoDimensionalTbl() {
 	        	
 	        }
 		
-
-	
-	
-	countBuffers++;
-
-
-
-
 }
 
 
