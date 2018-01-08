@@ -28,7 +28,7 @@ public class sendDimBankingData {
 		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module2.xml");
 	
 		FundsDAO bankingDAO = (FundsDAO) context.getBean("EtlDAO");
-	    bankingDAO.batchDimBankData(bankingDataArray);
+	    bankingDAO.execBankingDataDim();
 		
 	}
 		

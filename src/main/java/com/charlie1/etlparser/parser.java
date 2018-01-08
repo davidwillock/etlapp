@@ -34,6 +34,11 @@ import com.charlie1.etl.model.selectBankingData;
 import com.charlie1.etl.model.sendDimStoreInfo;
 import com.charlie1.etl.model.selectBankingData;
 import com.charlie1.etl.model.sendDimBankingData;
+import com.charlie1.etl.model.sendDimDateTime;
+import com.charlie1.etl.model.sendFactAppData;
+
+import com.charlie1.etl.model.selectAtmInfoSP;
+
 
 public class parser {
 
@@ -118,7 +123,7 @@ public class parser {
       //  parseCash(journal);
 
 	}
-	
+	/*
 	public static void parse(String journal) {
 		
 		
@@ -321,51 +326,51 @@ public static void parseCash(String journal,String terminalID,String journalID) 
 		 int rpercent =0;
 		 if (transCnt < 10) {
 			 
-			rpercent = generator.nextInt(10)+1;
+			rpercent = 1 + generator.nextInt(10);
 			 
 		 }else if(transCnt < 20) {
 			 
-			 rpercent = generator.nextInt(20)+15;
+			 rpercent = 15 + generator.nextInt(20);
 			 
 		 }else if(transCnt < 30) {
 			 
-			 rpercent = generator.nextInt(30)+25;
+			 rpercent = 25 + generator.nextInt(30);
 			 
 		 }else if(transCnt < 40) {
 			 
-			 rpercent = generator.nextInt(40)+35;
+			 rpercent = 35 + generator.nextInt(40);
 			 
 		 }else if(transCnt < 50 ) {
 			 
-			 rpercent = generator.nextInt(50)+45;
+			 rpercent = 45 + generator.nextInt(50);
 			 
 		 }else if(transCnt < 60 ) {
 			 
-			 rpercent = generator.nextInt(60)+55;
+			 rpercent = 55 + generator.nextInt(60);
 			 
 		 }else if(transCnt < 70) {
 			 
-			 rpercent = generator.nextInt(70)+65;
+			 rpercent = 65 + generator.nextInt(70);
 			 
 		 }else if(transCnt < 80) {
 			 
-			 rpercent = generator.nextInt(80)+75;
+			 rpercent = 75 + generator.nextInt(80);
 			 
 			 
 		 }else if( transCnt < 90) {
 			 
-			 rpercent = generator.nextInt(90)+94;
+			 rpercent = 87 + generator.nextInt(90);
 			 
 			 
 		 }else if(transCnt < 100) {
 			 
-			 rpercent = generator.nextInt(95)+97;
+			 rpercent = 90 + generator.nextInt(95);
 			 
 			 
 		 }else if(transCnt < 500) {
 			 
 			 
-			 rpercent = generator.nextInt(100)+97;
+			 rpercent = 98 +generator.nextInt(100);
 			 
 		 }
 		 
@@ -613,15 +618,15 @@ public static long parseCashUptime(String journal,String terminalID,String journ
 							 
 							long diffSeconds = diff / 1000 % 60;
 							
-							/*
-							 Calendar cal = Calendar.getInstance();
-							 cal.setTime(d);
-							 cal.add(Calendar.MINUTE, 10);
-							 transactionStartTime = df.format(cal.getTime());
-							 int rsecond = generator.nextInt(60)+10;
-							 String rtotalTime = transactionStartTime +":" +rsecond;
-							 System.out.println(rtotalTime);
-						 	*/
+							
+						//	 Calendar cal = Calendar.getInstance();
+					//		 cal.setTime(d);
+					//		 cal.add(Calendar.MINUTE, 10);
+					//		 transactionStartTime = df.format(cal.getTime());
+					//		 int rsecond = generator.nextInt(60)+10;
+					//		 String rtotalTime = transactionStartTime +":" +rsecond;
+					//		 System.out.println(rtotalTime);
+						 	
 							
 						    
 							shophours -= diffSeconds;
@@ -687,7 +692,7 @@ public static long parseCashUptime(String journal,String terminalID,String journ
 	journalStatusArray.add(journallookup);
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
-	*/
+	
 	//writetodisk.sendCSVtoMart();
 	
 		
@@ -695,7 +700,7 @@ public static long parseCashUptime(String journal,String terminalID,String journ
 	
 	
 }
-
+*/
 
 public static void parseCashStructured(String journal_,String terminalID,String journalID) {
 	
@@ -842,51 +847,51 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	 int rpercent =0;
 	 if (transCnt < 10) {
 		 
-		rpercent = generator.nextInt(10)+1;
+		rpercent = generator.nextInt(10);
 		 
 	 }else if(transCnt < 20) {
 		 
-		 rpercent = generator.nextInt(20)+10;
+		 rpercent = generator.nextInt(20);
 		 
 	 }else if(transCnt < 30) {
 		 
-		 rpercent = generator.nextInt(40)+20;
+		 rpercent = generator.nextInt(40);
 		 
 	 }else if(transCnt < 40) {
 		 
-		 rpercent = generator.nextInt(50)+30;
+		 rpercent = generator.nextInt(50);
 		 
 	 }else if(transCnt < 50 ) {
 		 
-		 rpercent = generator.nextInt(60)+40;
+		 rpercent = generator.nextInt(60);
 		 
 	 }else if(transCnt < 60 ) {
 		 
-		 rpercent = generator.nextInt(60)+45;
+		 rpercent = generator.nextInt(60);
 		 
 	 }else if(transCnt < 70) {
 		 
-		 rpercent = generator.nextInt(70)+55;
+		 rpercent = generator.nextInt(70);
 		 
 	 }else if(transCnt < 80) {
 		 
-		 rpercent = generator.nextInt(80)+70;
+		 rpercent = generator.nextInt(80);
 		 
 		 
 	 }else if( transCnt < 90) {
 		 
-		 rpercent = generator.nextInt(90)+75;
+		 rpercent = generator.nextInt(90);
 		 
 		 
 	 }else if(transCnt < 100) {
 		 
-		 rpercent = generator.nextInt(95)+80;
+		 rpercent = generator.nextInt(95);
 		 
 		 
 	 }else if(transCnt < 500) {
 		 
 		 
-		 rpercent = generator.nextInt(101)+80;
+		 rpercent = generator.nextInt(100);
 		 
 	 }
 	 	
@@ -918,12 +923,13 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	transArray.add(transdata);
 	journalStatusArray.add(journallookup);
 	
-	if(countBuffers > 5000) {
+	if(countBuffers == 10) {
 	sendtran.setTransactionData(transArray);
 	sendtran.initialiseData();
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
 	countBuffers = 0;
+	return;
 	}
 	
 	
@@ -1095,51 +1101,51 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	 int rpercent =0;
 	 if (transCnt < 10) {
 		 
-		rpercent = generator.nextInt(10)+1;
+		rpercent =  generator.nextInt(10);
 		 
 	 }else if(transCnt < 20) {
 		 
-		 rpercent = generator.nextInt(20)+10;
+		 rpercent =  generator.nextInt(20);
 		 
 	 }else if(transCnt < 30) {
 		 
-		 rpercent = generator.nextInt(40)+20;
+		 rpercent = generator.nextInt(40);
 		 
 	 }else if(transCnt < 40) {
 		 
-		 rpercent = generator.nextInt(50)+30;
+		 rpercent = generator.nextInt(50);
 		 
 	 }else if(transCnt < 50 ) {
 		 
-		 rpercent = generator.nextInt(60)+40;
+		 rpercent = generator.nextInt(60);
 		 
 	 }else if(transCnt < 60 ) {
 		 
-		 rpercent = generator.nextInt(60)+45;
+		 rpercent = generator.nextInt(60);
 		 
 	 }else if(transCnt < 70) {
 		 
-		 rpercent = generator.nextInt(70)+55;
+		 rpercent = generator.nextInt(70);
 		 
 	 }else if(transCnt < 80) {
 		 
-		 rpercent = generator.nextInt(80)+70;
+		 rpercent = generator.nextInt(80);
 		 
 		 
 	 }else if( transCnt < 90) {
 		 
-		 rpercent = generator.nextInt(90)+75;
+		 rpercent = generator.nextInt(90);
 		 
 		 
 	 }else if(transCnt < 100) {
 		 
-		 rpercent = generator.nextInt(95)+80;
+		 rpercent = generator.nextInt(95);
 		 
 		 
 	 }else if(transCnt < 500) {
 		 
 		 
-		 rpercent = generator.nextInt(101)+80;
+		 rpercent = generator.nextInt(100);
 		 
 	 }
 	 
@@ -1237,7 +1243,7 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	transFactArray.add(transdata);
 	journalStatusArray.add(journallookup);
 	
-	if(countBuffers > 5000) {
+	if(countBuffers == 10) {
 	
 	
 	
@@ -1246,6 +1252,9 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
 	countBuffers = 0;
+	//sendFactAppData sendfactappdata = new sendFactAppData();
+	//sendfactappdata.initialiseData();
+	return;
 	}
 	
 	
@@ -1403,51 +1412,51 @@ public static void parseCashtoFactTbl(String journal,String terminalID,String jo
 	 int rpercent =0;
 	 if (transCnt < 10) {
 		 
-		rpercent = generator.nextInt(10)+1;
+		rpercent = generator.nextInt(10);
 		 
 	 }else if(transCnt < 20) {
 		 
-		 rpercent = generator.nextInt(20)+15;
+		 rpercent = generator.nextInt(20);
 		 
 	 }else if(transCnt < 30) {
 		 
-		 rpercent = generator.nextInt(30)+25;
+		 rpercent = generator.nextInt(30);
 		 
 	 }else if(transCnt < 40) {
 		 
-		 rpercent = generator.nextInt(40)+35;
+		 rpercent = generator.nextInt(40);
 		 
 	 }else if(transCnt < 50 ) {
 		 
-		 rpercent = generator.nextInt(50)+45;
+		 rpercent = generator.nextInt(50);
 		 
 	 }else if(transCnt < 60 ) {
 		 
-		 rpercent = generator.nextInt(60)+55;
+		 rpercent = generator.nextInt(60);
 		 
 	 }else if(transCnt < 70) {
 		 
-		 rpercent = generator.nextInt(70)+65;
+		 rpercent = generator.nextInt(70);
 		 
 	 }else if(transCnt < 80) {
 		 
-		 rpercent = generator.nextInt(80)+75;
+		 rpercent = generator.nextInt(80);
 		 
 		 
 	 }else if( transCnt < 90) {
 		 
-		 rpercent = generator.nextInt(90)+94;
+		 rpercent = generator.nextInt(90);
 		 
 		 
 	 }else if(transCnt < 100) {
 		 
-		 rpercent = generator.nextInt(95)+97;
+		 rpercent = generator.nextInt(95);
 		 
 		 
 	 }else if(transCnt < 500) {
 		 
 		 
-		 rpercent = generator.nextInt(100)+97;
+		 rpercent = generator.nextInt(100);
 		 
 	 }
 	 
@@ -1499,7 +1508,9 @@ public static void parseCashtoFactTbl(String journal,String terminalID,String jo
 	
 	
 	
-
+	selectAtmInfoSP selectatminfosp = new  selectAtmInfoSP();
+	selectatminfosp.getAtmInfo();
+	
 	
 	String strAtmInfo = selectatminfo.getjsonStr();
 	String terminalid ="";
@@ -1520,6 +1531,9 @@ public static void parseCashtoFactTbl(String journal,String terminalID,String jo
 
 
 	        for (int j = 0; j <ja_dataFact.length(); j++) {
+	        	
+	        	
+	        //	System.out.println(" Counter " + countBuffers+ " Current Pointer   " + j);
 
 	            JSONObject rootObj = ja_dataFact.getJSONObject(j);
 
@@ -1541,7 +1555,8 @@ public static void parseCashtoFactTbl(String journal,String terminalID,String jo
 	            	transdata.setCustID(custid);
 	            	transdata.setStoreID(storeid);
 	            	transdata.setBankID(bankid);
-	            	System.out.println("found unstructure devices");
+	            	System.out.println("found unstructure devices " + terminalID + "    " + terminalid + " journalID " + journalID);
+	            	transFactArray.add(transdata);
 	            	
 	            }
 	            
@@ -1561,10 +1576,10 @@ public static void parseCashtoFactTbl(String journal,String terminalID,String jo
 		journallookup.setTerminalID(terminalID);
 		journallookup.setJournalStatus(journalID);
 		
-	transFactArray.add(transdata);
+	//transFactArray.add(transdata);
 	journalStatusArray.add(journallookup);
 	
-	if(countBuffers > 5000) {
+	if(countBuffers > 10) {
 	
 	
 	
@@ -1573,6 +1588,7 @@ public static void parseCashtoFactTbl(String journal,String terminalID,String jo
 	sendjournalstatus.setJournaldata(journalStatusArray);
 	sendjournalstatus.initialiseData();
 	countBuffers = 0;
+	return;
 	}
 	
 	
@@ -1845,6 +1861,8 @@ public void parseDatatoDimensionalTbl() {
                		senddimbankingdata.setDimBankingData(bankingDimensionArray);
                		senddimbankingdata.initialiseData();
 	               	
+               		
+               		
 	               	
 	               	
 	               	
@@ -1869,7 +1887,46 @@ public void parseDatatoDimensionalTbl() {
 }
 
 
+public void parseDatatoDimensionalTblSP() {
+	
+	
+	
 
+		
+	 try {
+	        
+		 		sendDimStoreInfo  senddimstoreinfo = new sendDimStoreInfo();
+		 		sendDimBankingData senddimbankingdata = new sendDimBankingData();
+		 		sendDimDateTime senddimdatetime = new sendDimDateTime();
+	             //   senddimstoreinfo.setDimStoreInfo(storeDimensionArray);
+                    senddimstoreinfo.initialiseData();
+       	          	
+	           		
+              // 		senddimbankingdata.setDimBankingData(bankingDimensionArray);
+              		senddimbankingdata.initialiseData();
+	               	
+	               	
+              		senddimdatetime.initialiseData();
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	               	
+	             
+	               	
+	                     	
+	             
+	             
+	        } catch(Exception ex) {
+	        	
+	        	ex.printStackTrace();
+	        	
+	        }
+		
+}
 
 
 

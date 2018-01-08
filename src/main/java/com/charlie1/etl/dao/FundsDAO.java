@@ -2,6 +2,8 @@ package com.charlie1.etl.dao;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import com.charlie1.etl.model.journalLookup;
 import com.charlie1.etl.model.transactionData;
 import com.charlie1.etl.model.FactTransactionData;
@@ -43,6 +45,13 @@ public interface FundsDAO
 	public void batchDimStoreInfo(List<storeInfoData> dimStoreData);
 	public String buildStrBankingData();
 	public void batchDimBankData(List<bankingData> bankingData);
+	
+	public List<Map<String, Object>> TestResultset();
+
+	void execStoresDim();
+	void execBankingDataDim();
+	void execDateDim();
+	void execAppData();
 	
 	
 	

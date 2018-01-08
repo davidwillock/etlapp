@@ -118,23 +118,23 @@ public class App
      // Parse Unstructured Data   
       //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         
-        //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+        File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
-        //source.displayDirectoryContents(currentDirLOG);
+        source.displayDirectoryContents(currentDirLOG);
         
       
         //Parse Structured Data
         File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-        //source.displayDirectoryContents(currentDirCSV);
+        source.displayDirectoryContents(currentDirCSV);
         
        // Parse Structured Data
         parser parse_ = new parser(); 
-       // parse_.parseTransactionDatatoFactTbl();
+        parse_.parseTransactionDatatoFactTbl();
         
         
         // Parse Dimension Data
         
-        parse_.parseDatatoDimensionalTbl();
+        parse_.parseDatatoDimensionalTblSP();
         
      
         // Simulation Stuff**********************

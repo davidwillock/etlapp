@@ -6,10 +6,13 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
 
@@ -19,7 +22,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -60,7 +65,7 @@ public class JdbcFundsDAO extends JdbcDaoSupport implements FundsDAO
 
 	
 	//private DataSource dataSource;
-	private JdbcTemplate jdbcTemplate;
+	//private JdbcTemplate jdbcTemplate;
 	
 
 	public String buildStrPeformanceData(String risk1, String risk2){
@@ -1382,7 +1387,8 @@ public	  String buildStrIDX() {
 	 		 String jsonstr = "";
 	 		
 	 		// String atmstr =  "select * from atminformation a left join retailstore r on a.TerminalID = r.TerminalID left join Banking b on b.BankID = a.BankID";
-	 		 String atmstr = "select distinct terminalid, * from atminformation a left join retailstores r on r.storeid = a.storeid left join Banking b on b.BankID = a.BankID order by a.TerminalID"; 
+	 		 String atmstr = "select distinct terminalid, * from mfunds.dbo.atminformation a left join mfunds.dbo.retailstores r on r.storeid = a.storeid left join mfunds.dbo.Banking b on b.BankID = a.BankID order by a.TerminalID";
+	 		 		
 	 
 	 		atmInfoData atminfodatadata = new atmInfoData();
 	 		bankingData bankingdata = new bankingData();
@@ -1890,8 +1896,77 @@ public void batchDimBankData(final List<bankingData> Banks){
 
 	
 }
+
+
+@Override
+public void execStoresDim() {
+	String storeProcedureName = "popdimstores";
+	 getJdbcTemplate().execute(storeProcedureName);
+			//queryForList(storeProcedureName);
+}
+
+@Override
+public void execBankingDataDim() {
+	String storeProcedureName = "popdimbank";
+	 getJdbcTemplate().execute(storeProcedureName);
+			//queryForList(storeProcedureName);
+}
+
+
+@Override
+public void execDateDim() {
+	String storeProcedureName = "popdimDateTime";
+	 getJdbcTemplate().execute(storeProcedureName);
+			//queryForList(storeProcedureName);
+}
+
+@Override
+public void execAppData() {
+	String storeProcedureName = "popFactAppData";
+	 getJdbcTemplate().execute(storeProcedureName);
+			
+}
+
+
+
+@Override
+public List<Map<String, Object>> TestResultset() {
+	String storeProcedureName = "getAtmInformation";
+	return getJdbcTemplate().queryForList(storeProcedureName);
+}
+
+
+
+
+
+
+
+/*
+public void execStoresDim() {
 	
-		
+	
+	
+	
+	
+	
+	 SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(dataSource)
+
+			 .withProcedureName("popdimstores");
+
+			 Map<String, Object> inParamMap = new HashMap<String, Object>();
+			 inParamMap.put("firstName", "Smita");
+			 inParamMap.put("lastName", "Chaudhari");
+			 SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+
+
+			 Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+			 
+			 
+	
+	
+}
+	
+*/		
  		
  		
  		

@@ -35,10 +35,10 @@ public class selectAtmInfo {
    	 String str="";
    	 
    	 ApplicationContext context = 
-        		new ClassPathXmlApplicationContext("Spring-Module.xml");
+        		new ClassPathXmlApplicationContext("Spring-Module3.xml");
    	 
    	 
-   	 FundsDAO AtmInfoDAO = (FundsDAO) context.getBean("FundsDAO");
+   	 FundsDAO AtmInfoDAO = (FundsDAO) context.getBean("Etl2DAO");
 //        str =  journalDAO.buildStrJournalData();
 		
 	
