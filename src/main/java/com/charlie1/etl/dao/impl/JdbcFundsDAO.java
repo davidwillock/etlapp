@@ -1067,7 +1067,8 @@ public	  String buildStrIDX() {
  	 		
  	 		 String jsonstr = "";
  	 		
- 	 		 String journalstr =  "select R.TerminalID,R.JournalID from JournalLookup R right join Customer C on C.TerminalID = R.TerminalID where R.JournalStatus = 1";
+ 	 		// String journalstr =  "select R.TerminalID,R.JournalID from JournalLookup R right join Customer C on C.TerminalID = R.TerminalID where R.JournalStatus = 1";
+ 	 		String journalstr =  "select TerminalID,JournalID from JournalLookup where JournalStatus = 1";
 
  	 
  	 	
@@ -1934,6 +1935,28 @@ public List<Map<String, Object>> TestResultset() {
 	String storeProcedureName = "getAtmInformation";
 	return getJdbcTemplate().queryForList(storeProcedureName);
 }
+
+
+
+
+@Override
+public void execCustomerInfoDim() {
+	String storeProcedureName = "popdimCustomer";
+	 getJdbcTemplate().execute(storeProcedureName);
+			
+}
+
+
+
+@Override
+public void execTerminalInfoDim() {
+	String storeProcedureName = "popdimTerminal";
+	 getJdbcTemplate().execute(storeProcedureName);
+			
+}
+
+
+
 
 
 

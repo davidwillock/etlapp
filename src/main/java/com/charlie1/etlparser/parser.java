@@ -36,8 +36,10 @@ import com.charlie1.etl.model.selectBankingData;
 import com.charlie1.etl.model.sendDimBankingData;
 import com.charlie1.etl.model.sendDimDateTime;
 import com.charlie1.etl.model.sendFactAppData;
+import com.charlie1.etl.model.sendDimTerminalInfo;
 
 import com.charlie1.etl.model.selectAtmInfoSP;
+import com.charlie1.etl.model.sendDimCustomerInfo;
 
 
 public class parser {
@@ -701,7 +703,7 @@ public static long parseCashUptime(String journal,String terminalID,String journ
 	
 }
 */
-
+/*
 public static void parseCashStructured(String journal_,String terminalID,String journalID) {
 	
 	
@@ -936,13 +938,13 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	
 	
 	
-	/*
-	sendtran.setTransactionData(transArray);
-	sendtran.initialiseData();
-	journalStatusArray.add(journallookup);
-	sendjournalstatus.setJournaldata(journalStatusArray);
-	sendjournalstatus.initialiseData();
-	*/
+	
+	//sendtran.setTransactionData(transArray);
+	//sendtran.initialiseData();
+	//journalStatusArray.add(journallookup);
+	//sendjournalstatus.setJournaldata(journalStatusArray);
+	//sendjournalstatus.initialiseData();
+	
 	sumValues =0;
 	transCnt =0;
 	
@@ -954,7 +956,7 @@ public static void parseCashStructured(String journal_,String terminalID,String 
 	
 }
 	
-
+*/
 
 public static void parseCashStructuredToFactTransTbl(String journal_,String terminalID,String journalID) {
 	
@@ -1209,6 +1211,16 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	            	transdata.setStoreID(storeid);
 	            	transdata.setBankID(bankid);
 	            	transFactArray.add(transdata);
+	            	
+	            	journallookup.setTerminalID(terminalID);
+	         		journallookup.setJournalStatus(journalID);
+	         		
+	         		//transFactArray.add(transdata);
+	         		journalStatusArray.add(journallookup);
+	         	
+	            	
+	            	
+	            	
 	            	System.out.println("Found Structured Devices: " + terminalid);
 	            	
 	            }
@@ -1244,7 +1256,7 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	
 	
 	
-	journalStatusArray.add(journallookup);
+//	journalStatusArray.add(journallookup);
 	
 	if(transFactArray.size() == 5000) {
 	
@@ -1562,7 +1574,12 @@ public static void parseCashStructuredToApplicationLog(String journal_,String te
 	            	
 	            
 	            	
-	            	
+	            	 journallookup.setTerminalID(terminalID);
+	         		journallookup.setJournalStatus(journalID);
+	         		
+	         			//transFactArray.add(transdata);
+	         			journalStatusArray.add(journallookup);
+	         	
 	            	
 	            	
 	            
@@ -1595,13 +1612,12 @@ public static void parseCashStructuredToApplicationLog(String journal_,String te
 	
 	
 	
-	
 
 	
 	
 	
 	
-	journalStatusArray.add(journallookup);
+	//.add(journallookup);
 	
 	if(transArray.size() == 5000) {
 	
@@ -1610,8 +1626,8 @@ public static void parseCashStructuredToApplicationLog(String journal_,String te
 	
 	//sendFacttransdata.setFactTransactionData(transFactArray);
 	//sendFacttransdata.initialiseData();
-	//sendjournalstatus.setJournaldata(journalStatusArray);
-	//sendjournalstatus.initialiseData();
+	sendjournalstatus.setJournaldata(journalStatusArray);
+	sendjournalstatus.initialiseData();
 	countBuffers = 0;
 	//sendFactAppData sendfactappdata = new sendFactAppData();
 	//sendfactappdata.initialiseData();
@@ -1933,6 +1949,13 @@ public static void parseCashUnStructuredtoFactTbl(String journal,String terminal
 	            	System.out.println("Found UNStructured Devices: " + terminalid);
 	            	transFactArray.add(transdata);
 	            	
+	            	
+	            	journallookup.setTerminalID(terminalID);
+	        		journallookup.setJournalStatus(journalID);
+	        		
+	        		//transFactArray.add(transdata);
+	        		journalStatusArray.add(journallookup);
+	            	
 	            }
 	            
 	            
@@ -1948,13 +1971,9 @@ public static void parseCashUnStructuredtoFactTbl(String journal,String terminal
 	        }
 	 
 	 
-		journallookup.setTerminalID(terminalID);
-		journallookup.setJournalStatus(journalID);
 		
-	//transFactArray.add(transdata);
-	journalStatusArray.add(journallookup);
 	
-	if(transFactArray.size() == 5000) {
+	if(transFactArray.size() == 2) {
 	
 	
 	
@@ -1988,7 +2007,7 @@ public static void parseCashUnStructuredtoFactTbl(String journal,String terminal
 	countBuffers++;
 }
 
-
+/*
 public void parseTransactionDatatoFactTbl() {
 	
 	
@@ -2261,7 +2280,7 @@ public void parseDatatoDimensionalTbl() {
 		
 }
 
-
+*/
 public void parseDatatoDimensionalTblSP() {
 	
 	
@@ -2273,6 +2292,11 @@ public void parseDatatoDimensionalTblSP() {
 		 		sendDimStoreInfo  senddimstoreinfo = new sendDimStoreInfo();
 		 		sendDimBankingData senddimbankingdata = new sendDimBankingData();
 		 		sendDimDateTime senddimdatetime = new sendDimDateTime();
+		 		sendDimCustomerInfo senddimcustomerinfo = new sendDimCustomerInfo();
+		 		sendDimTerminalInfo senddimterminalinfo = new sendDimTerminalInfo();
+		 				senddimdatetime.initialiseData();
+		 		
+		 		
 	             //   senddimstoreinfo.setDimStoreInfo(storeDimensionArray);
                     senddimstoreinfo.initialiseData();
        	          	
@@ -2280,11 +2304,11 @@ public void parseDatatoDimensionalTblSP() {
               // 		senddimbankingdata.setDimBankingData(bankingDimensionArray);
               		senddimbankingdata.initialiseData();
 	               	
+	               	            		
+              		senddimcustomerinfo.initialiseData();
 	               	
-              		senddimdatetime.initialiseData();
 	               	
-	               	
-	               	
+              		senddimterminalinfo.initialiseData();
 	               	
 	               	
 	               	

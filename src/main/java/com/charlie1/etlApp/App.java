@@ -98,29 +98,40 @@ public class App
         
         
         
-    /*    
+        
         selectJournal journaldata = new selectJournal();
-        validateJournal validatejrn = new validateJournal();
-        selectJournal selectjournal = new selectJournal();
+       // validateJournal validatejrn = new validateJournal();
+       // selectJournal selectjournal = new selectJournal();
         
-        String jsonStr = selectjournal.getjsonStr();
+        //String jsonStr = selectjournal.getjsonStr();
         
-        App app = new App();
-        app.setJsonStr(jsonStr);
-        */
+        //App app = new App();
+        //app.setJsonStr(jsonStr);
+        
         
       //  String Static final journalDATAstr = app.getJsonStr();
         
         
         
         
+        // Parse Dimension Data
+        
+        //   parser parse_ = new parser();
+        
+        //   parse_.parseDatatoDimensionalTblSP();
+          
+        
+        
+        
+        
+        
         
      // Parse Unstructured Data   
-      //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+     
         
-    //*    File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+        File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
-    //    source.displayDirectoryContents(currentDirLOG);
+        source.displayDirectoryContents(currentDirLOG);
         
       
         //Parse Structured Data
@@ -128,18 +139,17 @@ public class App
        // source.displayDirectoryContents(currentDirCSV);
         
       
-          File currentDirCSV = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
-          source.displayDirectoryContents(currentDirCSV);
+        //Parse Structured Data Application Log
+        
+        //File currentDirCSV = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
+        //source.displayDirectoryContents(currentDirCSV);
         
         // Parse Structured Data
      //*   parser parse_ = new parser(); 
      //   parse_.parseTransactionDatatoFactTbl();
         
         
-        // Parse Dimension Data
-        
-      //*  parse_.parseDatatoDimensionalTblSP();
-        
+      
      
         // Simulation Stuff**********************
         

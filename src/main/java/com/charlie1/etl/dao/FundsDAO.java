@@ -52,6 +52,8 @@ public interface FundsDAO
 	void execBankingDataDim();
 	void execDateDim();
 	void execAppData();
+	void execCustomerInfoDim();
+	void execTerminalInfoDim();
 	
 	
 	

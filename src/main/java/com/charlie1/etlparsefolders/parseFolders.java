@@ -126,8 +126,8 @@ public class parseFolders  {
 					    		srcfiles. parseCashUnStructuredtoFactTbl(strJournalData,terminalID,journalID);
 					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
 					    		
-					    		srcfiles.parseCashStructuredToApplicationLog(strJournalData,terminalID,journalID);
-					    		//srcfiles.parseCashStructuredToFactTransTbl(strJournalData,terminalID,journalID);
+					    		//srcfiles.parseCashStructuredToApplicationLog(strJournalData,terminalID,journalID);
+					    		srcfiles.parseCashStructuredToFactTransTbl(strJournalData,terminalID,journalID);
 					    	
 					    	}
 					    	
