@@ -39,10 +39,10 @@ public class selectAtmInfoSP {
    	 String strAtmInfo="";
    	 
    	 ApplicationContext context = 
-        		new ClassPathXmlApplicationContext("Spring-Module3.xml");
+        		new ClassPathXmlApplicationContext("Spring-Module2.xml");
    	 
    	 
-   	 FundsDAO AtmInfoDAO = (FundsDAO) context.getBean("Etl2DAO");
+   	 FundsDAO AtmInfoDAO = (FundsDAO) context.getBean("EtlDAO");
    	 
 //        str =  journalDAO.buildStrJournalData();
 		
@@ -59,17 +59,17 @@ public class selectAtmInfoSP {
 	           
 	        for (Map<String, Object> map :  LMResult) {
 	            for (Map.Entry<String, Object> entry : map.entrySet()) {
-	                System.out.println(entry.getKey() + " -* " + entry.getValue());
+	         //       System.out.println(entry.getKey() + " -* " + entry.getValue());
 	            	
-	            	strAtmInfo += "'"  + entry.getKey() +"': '"+ entry.getValue()+"',";
+	            	strAtmInfo += "\""  + entry.getKey() +"\":\""+ entry.getValue()+"\",";
 	            	if(entry.getKey().equals("Rate")) { 
 	            		
 	            		StringBuilder sb = new StringBuilder(strAtmInfo);
 	    	        	sb.deleteCharAt(strAtmInfo.length()-1);
 	    	        	strAtmInfo = sb.toString();
 	    	        	strAtmInfo += "},{"; 
-	            		
-	            		
+	    	        //	strAtmInfo += "}";
+	            		break;
 	            	}
 	            	
 	            
@@ -78,7 +78,7 @@ public class selectAtmInfoSP {
 	            	
 	            	
 	            }
-	        	System.out.println(strAtmInfo);
+	        	
 	        }
 	        
 	        
@@ -114,7 +114,12 @@ public class selectAtmInfoSP {
 	        
 	        jsonstr += "{\"AtmInfoData\": [";
 	        jsonstr += strAtmInfo + "]}";
+	        
+	  
 	       
+	      
+	        
+	   	
 
 	        
 

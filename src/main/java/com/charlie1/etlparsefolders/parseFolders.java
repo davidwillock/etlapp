@@ -123,11 +123,11 @@ public class parseFolders  {
 					    	
 					    	if(!validatejournal.isGetStatus() && extType.equals("JRN")) {
 					    		
-					    		srcfiles. parseCashtoFactTbl(strJournalData,terminalID,journalID);
+					    		srcfiles. parseCashUnStructuredtoFactTbl(strJournalData,terminalID,journalID);
 					    	}else if(!validatejournal.isGetStatus() && extType.equals("CSV")) {
 					    		
-					    		//srcfiles.parseCashStructured(strJournalData,terminalID,journalID);
-					    		srcfiles.parseCashStructuredToFactTransTbl(strJournalData,terminalID,journalID);
+					    		srcfiles.parseCashStructuredToApplicationLog(strJournalData,terminalID,journalID);
+					    		//srcfiles.parseCashStructuredToFactTransTbl(strJournalData,terminalID,journalID);
 					    	
 					    	}
 					    	
@@ -156,8 +156,9 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 		String orgJrnDate = journalDate;
 		
 		 Random generator = new Random();
+		 int min = 1;
 		
-		 int randomtrans = generator.nextInt(60)+20;
+		 int randomtrans = min + generator.nextInt(70);
 		 System.out.println("Random trans"+ randomtrans);
 		 
 	    
@@ -213,7 +214,7 @@ public static void createDirectoryContents(File dir, int maxJournals,int maxtran
 			         
 			         // set path to journal for creation
 					     
-					     sim.setTransactioncnt(maxtrans);
+					     sim.setTransactioncnt(generator.nextInt(80));
 					     sim.setTransactionStartTime(starttime);
 					     sim.createTransactions();
 					     

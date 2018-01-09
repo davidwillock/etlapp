@@ -1191,7 +1191,7 @@ public	  String buildStrIDX() {
  			
  			transactionData transdata = new transactionData();
 
- 			String sql = "INSERT INTO Transactions " +
+ 			String sql = "INSERT INTO Transactionlog " +
  					"(TerminalID, JournalID,Atm_value,Atm_volume,Uptime ) VALUES (?, ?, ?,?,?)";
  			
  			

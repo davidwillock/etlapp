@@ -118,32 +118,49 @@ public class App
      // Parse Unstructured Data   
       //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         
-        File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+    //*    File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
-        source.displayDirectoryContents(currentDirLOG);
+    //    source.displayDirectoryContents(currentDirLOG);
         
       
         //Parse Structured Data
-        File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
-        source.displayDirectoryContents(currentDirCSV);
+       // File currentDirCSV = new File("C:\\home\\charlie\\Journaljrn");
+       // source.displayDirectoryContents(currentDirCSV);
         
-       // Parse Structured Data
-        parser parse_ = new parser(); 
-        parse_.parseTransactionDatatoFactTbl();
+      
+          File currentDirCSV = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
+          source.displayDirectoryContents(currentDirCSV);
+        
+        // Parse Structured Data
+     //*   parser parse_ = new parser(); 
+     //   parse_.parseTransactionDatatoFactTbl();
         
         
         // Parse Dimension Data
         
-        parse_.parseDatatoDimensionalTblSP();
+      //*  parse_.parseDatatoDimensionalTblSP();
         
      
         // Simulation Stuff**********************
         
         
         // Create Simulator Transactions
-       // File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
-       // source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
+        //*File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+        //source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
       
+        
+        // Create Simulator for Application Log
+ //Parse Application Log
+        
+      //  File currentDirSim = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
+      //  source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
+        
+        
+        
+        
+        
+        
+        
         
        // Create Random Folders  
        // simulator sim = new simulator(); 
