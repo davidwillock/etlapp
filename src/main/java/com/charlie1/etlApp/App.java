@@ -99,7 +99,7 @@ public class App
         
         
         
-        selectJournal journaldata = new selectJournal();
+     //*   selectJournal journaldata = new selectJournal();
        // validateJournal validatejrn = new validateJournal();
        // selectJournal selectjournal = new selectJournal();
         
@@ -129,9 +129,9 @@ public class App
      // Parse Unstructured Data   
      
         
-        File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
+        //File currentDirLOG = new File("C:\\home\\charlie\\Custjrn");
         parseFolders source = new parseFolders();
-        source.displayDirectoryContents(currentDirLOG);
+        //source.displayDirectoryContents(currentDirLOG);
         
       
         //Parse Structured Data
@@ -141,8 +141,16 @@ public class App
       
         //Parse Structured Data Application Log
         
-        //File currentDirCSV = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
-        //source.displayDirectoryContents(currentDirCSV);
+        // from Simulator
+        File currentDirCSV = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
+        source.displayDirectoryContents(currentDirCSV);
+        
+        //Stored Procedure approach
+        //parse_.parseDatatoDimensionalTblSP()
+        
+         /*  ***********************************************    */
+        
+        
         
         // Parse Structured Data
      //*   parser parse_ = new parser(); 
@@ -155,15 +163,15 @@ public class App
         
         
         // Create Simulator Transactions
-        //*File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
+        //File currentDirSim = new File("C:\\home\\charlie\\Journaljrn");
         //source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
       
         
         // Create Simulator for Application Log
  //Parse Application Log
         
-      //  File currentDirSim = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
-      //  source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
+     //  File currentDirSim = new File("C:\\home\\charlie\\bak\\Journaljrn_database");
+     // source.createDirectoryContents(currentDirSim,80,60,"2002-01-01","09:00");
         
         
         
@@ -179,7 +187,7 @@ public class App
        
        
        
-       parser test = new parser();
+      // parser test = new parser();
        
        /*  Get Customer Data        */
        

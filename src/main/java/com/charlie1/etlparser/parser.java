@@ -1103,51 +1103,64 @@ public static void parseCashStructuredToFactTransTbl(String journal_,String term
 	 int rpercent =0;
 	 if (transCnt < 10) {
 		 
-		rpercent =  generator.nextInt(10);
+		int min = 3000; int max = 3600; 
+		rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 20) {
+	 }else if(transCnt >= 10  && transCnt < 20) {
 		 
-		 rpercent =  generator.nextInt(20);
+		 int min = 10000; int max = 15000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 30) {
+	 }else if(transCnt >= 20  && transCnt < 30) {
 		 
-		 rpercent = generator.nextInt(40);
+		 int min = 20000; int max = 20800; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 40) {
+	 }else if(transCnt >= 30  && transCnt < 40) {
 		 
-		 rpercent = generator.nextInt(50);
+		 int min = 30000; int max = 40000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 50 ) {
+	 }else if(transCnt >= 40  && transCnt < 50) {
 		 
-		 rpercent = generator.nextInt(60);
+		 int min = 30000; int max = 40000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 60 ) {
+	 }else if(transCnt >= 50  && transCnt < 60) {
 		 
-		 rpercent = generator.nextInt(60);
+		 int min = 40000; int max = 50000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 70) {
+	 }else if(transCnt >= 60  && transCnt < 70) {
 		 
-		 rpercent = generator.nextInt(70);
+		 int min = 50000; int max = 57000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 80) {
+	 }else if(transCnt >= 70  && transCnt < 80) {
 		 
-		 rpercent = generator.nextInt(80);
-		 
-		 
-	 }else if( transCnt < 90) {
-		 
-		 rpercent = generator.nextInt(90);
-		 
-		 
-	 }else if(transCnt < 100) {
-		 
-		 rpercent = generator.nextInt(95);
+		 int min = 64000; int max = 72000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 		 
-	 }else if(transCnt < 500) {
+	 }else if(transCnt >= 80  && transCnt < 100) {
+		 
+		 int min = 72000; int max = 79200; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 		 
-		 rpercent = generator.nextInt(100);
+		 
+	 }else if(transCnt >= 100  && transCnt < 150) {
+		 
+		 int min = 79000; int max = 86000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
+		 
+		 
+		 
+	 }else if(transCnt >= 150) {
+		 
+		 
+		 int min = 79000; int max = 86300; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 	 }
 	 
@@ -1441,51 +1454,64 @@ public static void parseCashStructuredToApplicationLog(String journal_,String te
 	 int rpercent =0;
 	 if (transCnt < 10) {
 		 
-		rpercent =  generator.nextInt(10);
+		int min = 3000; int max = 3600; 
+		rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 20) {
+	 }else if(transCnt >= 10  && transCnt < 20) {
 		 
-		 rpercent =  generator.nextInt(20);
+		 int min = 10000; int max = 15000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 30) {
+	 }else if(transCnt >= 20  && transCnt < 30) {
 		 
-		 rpercent = generator.nextInt(40);
+		 int min = 20000; int max = 20800; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 40) {
+	 }else if(transCnt >= 30  && transCnt < 40) {
 		 
-		 rpercent = generator.nextInt(50);
+		 int min = 30000; int max = 40000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 50 ) {
+	 }else if(transCnt >= 40  && transCnt < 50) {
 		 
-		 rpercent = generator.nextInt(60);
+		 int min = 30000; int max = 40000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 60 ) {
+	 }else if(transCnt >= 50  && transCnt < 60) {
 		 
-		 rpercent = generator.nextInt(60);
+		 int min = 40000; int max = 50000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 70) {
+	 }else if(transCnt >= 60  && transCnt < 70) {
 		 
-		 rpercent = generator.nextInt(70);
+		 int min = 50000; int max = 57000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 80) {
+	 }else if(transCnt >= 70  && transCnt < 80) {
 		 
-		 rpercent = generator.nextInt(80);
-		 
-		 
-	 }else if( transCnt < 90) {
-		 
-		 rpercent = generator.nextInt(90);
-		 
-		 
-	 }else if(transCnt < 100) {
-		 
-		 rpercent = generator.nextInt(95);
+		 int min = 64000; int max = 72000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 		 
-	 }else if(transCnt < 500) {
+	 }else if(transCnt >= 80  && transCnt < 100) {
+		 
+		 int min = 72000; int max = 79200; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 		 
-		 rpercent = generator.nextInt(100);
+		 
+	 }else if(transCnt >= 100  && transCnt < 150) {
+		 
+		 int min = 79000; int max = 86000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
+		 
+		 
+		 
+	 }else if(transCnt >= 150) {
+		 
+		 
+		 int min = 79000; int max = 86300; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 	 }
 	 
@@ -1793,51 +1819,64 @@ public static void parseCashUnStructuredtoFactTbl(String journal,String terminal
 	 int rpercent =0;
 	 if (transCnt < 10) {
 		 
-		rpercent = generator.nextInt(10);
+		int min = 3000; int max = 3600; 
+		rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 20) {
+	 }else if(transCnt >= 10  && transCnt < 20) {
 		 
-		 rpercent = generator.nextInt(20);
+		 int min = 10000; int max = 15000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 30) {
+	 }else if(transCnt >= 20  && transCnt < 30) {
 		 
-		 rpercent = generator.nextInt(30);
+		 int min = 20000; int max = 20800; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 40) {
+	 }else if(transCnt >= 30  && transCnt < 40) {
 		 
-		 rpercent = generator.nextInt(40);
+		 int min = 30000; int max = 40000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 50 ) {
+	 }else if(transCnt >= 40  && transCnt < 50) {
 		 
-		 rpercent = generator.nextInt(50);
+		 int min = 30000; int max = 40000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 60 ) {
+	 }else if(transCnt >= 50  && transCnt < 60) {
 		 
-		 rpercent = generator.nextInt(60);
+		 int min = 40000; int max = 50000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 70) {
+	 }else if(transCnt >= 60  && transCnt < 70) {
 		 
-		 rpercent = generator.nextInt(70);
+		 int min = 50000; int max = 57000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
-	 }else if(transCnt < 80) {
+	 }else if(transCnt >= 70  && transCnt < 80) {
 		 
-		 rpercent = generator.nextInt(80);
-		 
-		 
-	 }else if( transCnt < 90) {
-		 
-		 rpercent = generator.nextInt(90);
-		 
-		 
-	 }else if(transCnt < 100) {
-		 
-		 rpercent = generator.nextInt(95);
+		 int min = 64000; int max = 72000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 		 
-	 }else if(transCnt < 500) {
+	 }else if(transCnt >= 80  && transCnt < 100) {
+		 
+		 int min = 72000; int max = 79200; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 		 
-		 rpercent = generator.nextInt(100);
+		 
+	 }else if(transCnt >= 100  && transCnt < 150) {
+		 
+		 int min = 79000; int max = 86000; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
+		 
+		 
+		 
+	 }else if(transCnt >= 150) {
+		 
+		 
+		 int min = 79000; int max = 86300; 
+	     rpercent = generator.nextInt(max + 1 - min) + min;
 		 
 	 }
 	 
@@ -1971,9 +2010,9 @@ public static void parseCashUnStructuredtoFactTbl(String journal,String terminal
 	        }
 	 
 	 
-		
+
 	
-	if(transFactArray.size() == 2) {
+	if(transFactArray.size() == 5000) {
 	
 	
 	
@@ -2281,12 +2320,38 @@ public void parseDatatoDimensionalTbl() {
 }
 
 */
-public void parseDatatoDimensionalTblSP() {
+public void parseDatatoStructuredTblSP(){
 	
 	
 	
 
 		
+	 try {
+	        
+		 sendFactAppData sendfactappdata = new sendFactAppData();
+		 		
+		 		
+		 sendfactappdata.initialiseData();
+	               	
+	                          	
+	             
+	             
+	        } catch(Exception ex) {
+	        	
+	        	ex.printStackTrace();
+	        	
+	        }
+		
+}
+
+
+
+public void  parseDatatoDimensionalTblSP()  {
+	
+	
+	
+
+	
 	 try {
 	        
 		 		sendDimStoreInfo  senddimstoreinfo = new sendDimStoreInfo();
@@ -2298,17 +2363,17 @@ public void parseDatatoDimensionalTblSP() {
 		 		
 		 		
 	             //   senddimstoreinfo.setDimStoreInfo(storeDimensionArray);
-                    senddimstoreinfo.initialiseData();
-       	          	
+                   senddimstoreinfo.initialiseData();
+      	          	
 	           		
-              // 		senddimbankingdata.setDimBankingData(bankingDimensionArray);
-              		senddimbankingdata.initialiseData();
+             // 		senddimbankingdata.setDimBankingData(bankingDimensionArray);
+             		senddimbankingdata.initialiseData();
 	               	
 	               	            		
-              		senddimcustomerinfo.initialiseData();
+             		senddimcustomerinfo.initialiseData();
 	               	
 	               	
-              		senddimterminalinfo.initialiseData();
+             		senddimterminalinfo.initialiseData();
 	               	
 	               	
 	               	
@@ -2326,6 +2391,15 @@ public void parseDatatoDimensionalTblSP() {
 	        }
 		
 }
+
+
+
+
+
+
+
+
+
 
 
 
